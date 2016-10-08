@@ -13,14 +13,13 @@ public class CharacterData : MonoBehaviour
 
 		#region Data
 
+		public int playerSpeed { get; set; }
+
 		public Transform player;
 		public Transform spawn;
 		public List<Transform> spawns;
 		public Transform gndCheck;
 		public Transform startPlat;
-
-		[HideInInspector] public Transform lastPlat;
-		[HideInInspector] public Transform currentPlat;
 
 		/// <summary>
 		/// Is the player touching the ground?
@@ -46,22 +45,15 @@ public class CharacterData : MonoBehaviour
 		}
 
 		/// <summary>
+		/// True if player is currently colliding, false if not.
+		/// </summary>
+		/// <value><c>true</c> if collide state; otherwise, <c>false</c>.</value>
+		public bool collideState { get; set; }
+
+		/// <summary>
 		/// distFromGnd from previous frame
 		/// </summary>
 		private float prev_distFromGnd;
-
-		/// <summary>
-		/// This gives the y velocity scaled 1 to -1. 1 means it's yvelocity is positive, 0 means 0, 0 to -1 is percentage of terminal Velocity.
-		/// </summary>
-		[HideInInspector]public float yVelocityScaled
-		{
-			get{ return (rgbody.velocity.y > 0) ? 1f : -1 * rgbody.velocity.y/termVelocity;}
-		}
-
-		/// <summary>
-		/// Set the terminal Velocity of player
-		/// </summary>
-		public float termVelocity = -60f;
 
 		/// <summary>
 		/// The LayerMask of the ground
@@ -79,17 +71,6 @@ public class CharacterData : MonoBehaviour
 		public Camera playerCam;
 		public float jumpForce = 7200f;
 		public float moveSpeed = 20f;
-		public float score;
-		public float dist_death = 30f;
-		public bool collideState;
-		public bool prevcollideState;
-		public bool obstaclehit = false;
-
-		/// <summary>
-		/// Battery's recharge rate per second
-		/// </summary>
-		/// <value>The b percent power.</value>
-		public float b_Recharge = 10f;
 
 		/// <summary>
 		/// Battery's Capacity
@@ -123,87 +104,15 @@ public class CharacterData : MonoBehaviour
 
 		void Start()
 		{
-			currentPlat = startPlat;
-			b_Power = b_MaxPower;
 			setValues();
 		}
 
 		void Update()
 		{
-			if(lastPlat.position.y - player.position.y >= dist_death)
-			{
-				Reload();
-			}
-			battery();
-
 			prev_distFromGnd = distFromGnd;
 			//Debug.Log("YVelocity: " + rgbody.velocity.y);
 		}
 
-		void LateUpdate()
-		{
-			prevcollideState = collideState;
-		}
-			
-		void OnCollisionEnter2D(Collision2D col)
-		{
-			collideState = true;
-			if(currentPlat != null)
-				lastPlat = currentPlat;
-			
-			currentPlat = col.transform;
-
-			if(col.transform.gameObject.layer == gndMask)
-			{
-				vOnLand = rgbody.velocity;
-			}
-		}
-
-		void OnCollisionExit2D(Collision2D col)
-		{
-			collideState = false;
-		}
-
-		#endregion
-
-		#region Methods
-
-		public void Reload()
-		{
-			
-		}
-
-		private void resetValues()
-		{
-
-		}
-
-		/// <summary>
-		/// Subtracts the power and returns a float determining the effect.
-		/// </summary>
-		/// <returns>Percentage of effect 0 - 1.</returns>
-		/// <param name="amount">Amount.</param>
-		public float subtractPower(float amount)
-		{
-			float rtnValue = 1;
-			if(b_Power >= amount)
-			{
-				rtnValue = 1;
-				b_Power -= amount;
-			}
-			else if(b_Power < amount)
-			{
-				rtnValue = b_Power/amount;
-				b_Power = 0;
-			}
-			return rtnValue;
-		}
-
-		private void battery()
-		{
-			if(b_Power < b_MaxPower)
-				b_Power += b_Recharge * Time.deltaTime;
-		}
 
 		#endregion
 
