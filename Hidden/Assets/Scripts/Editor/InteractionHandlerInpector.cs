@@ -22,6 +22,8 @@ namespace CustomInspectors
 
 		public override void OnInspectorGUI()
 		{
+			if(handler.colCheckNames.Count > 0)
+				Debug.Log("First element in handler col list: " + handler.colCheckNames[0]);
 			colExpandTag = EditorGUILayout.Foldout(colExpandTag, "Tags to check on collision");
 
 			if(colExpandTag)
@@ -84,7 +86,7 @@ namespace CustomInspectors
 
 			trigExpandName = EditorGUILayout.Foldout(trigExpandName, "Names to check on trigger");
 
-			if(colExpandName)
+			if(trigExpandName)
 			{
 				for(int i = 0; i < handler.trigCheckNames.Count; i++)
 				{
@@ -141,6 +143,7 @@ namespace CustomInspectors
 
 				GUILayout.EndHorizontal();
 			}
+			EditorUtility.SetDirty(handler);
 		}
 	}
 }

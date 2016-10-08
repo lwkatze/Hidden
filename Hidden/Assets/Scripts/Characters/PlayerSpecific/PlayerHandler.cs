@@ -19,13 +19,14 @@ public class PlayerHandler : MonoBehaviour {
 		subscribeEvents();
 	}
 
-	private void colResponse(object sender, Collision2D col, System.EventArgs e)
+	private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
 	{
 		Debug.Log("col detected in playerHandler");
 	}
 
 	private void subscribeEvents()
 	{
+		Debug.Log("heya");
 		handler.colFired += new colResponder(colResponse);
 	}
 }
