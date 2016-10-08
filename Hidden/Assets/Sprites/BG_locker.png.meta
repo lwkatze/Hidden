@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 42779903d57c444c284feb7620e22767
 timeCreated: 1475901174
 licenseType: Free
@@ -8,6 +9,19 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+=======
+guid: 59143be09382df84fbab229fad2c1074
+timeCreated: 1475901609
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BG_locker_fore
+    21300002: BG_locker_back
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+>>>>>>> origin/master
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -26,10 +40,17 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
+<<<<<<< HEAD
   textureFormat: -3
   maxTextureSize: 64
   textureSettings:
     filterMode: -1
+=======
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+>>>>>>> origin/master
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -38,7 +59,11 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
+<<<<<<< HEAD
   spriteMode: 1
+=======
+  spriteMode: 2
+>>>>>>> origin/master
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,7 +76,37 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
+<<<<<<< HEAD
     sprites: []
+=======
+    sprites:
+    - serializedVersion: 2
+      name: BG_locker_fore
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 9
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BG_locker_back
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 9
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+>>>>>>> origin/master
     outline: []
   spritePackingTag: 
   userData: 
