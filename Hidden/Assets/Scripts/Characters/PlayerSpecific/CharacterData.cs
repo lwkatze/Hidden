@@ -102,6 +102,15 @@ public class CharacterData : MonoBehaviour
 			//Debug.Log("YVelocity: " + rgbody.velocity.y);
 		}
 
+		void OnCollisionEnter()
+		{
+			collideState = true;
+		}
+
+		void OnCollisionExit()
+		{
+			collideState = false;
+		}
 
 		#endregion
 
