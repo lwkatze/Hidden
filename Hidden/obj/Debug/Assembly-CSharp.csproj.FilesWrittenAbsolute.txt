@@ -1,0 +1,17 @@
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/UnityEngine.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/UnityEditor.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Mono.Cecil.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Unity.DataContract.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/Isaac/Documents/Hidden/Hidden/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/Isaac/Documents/Hidden/Hidden/obj/Debug/Assembly-CSharp.dll
+/Users/Isaac/Documents/Hidden/Hidden/obj/Debug/Assembly-CSharp.dll.mdb

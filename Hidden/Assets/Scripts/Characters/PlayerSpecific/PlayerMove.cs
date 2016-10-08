@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections;
+using App.Game.Utility;
 
 namespace App.Game.Player
 {
@@ -74,6 +75,11 @@ namespace App.Game.Player
 			}
 		}
 
+		void Start()
+		{
+			
+		}
+
 		void Update()
 		{
 			MoveUpdate();
@@ -84,9 +90,9 @@ namespace App.Game.Player
 
 		void MoveUpdate ()
 		{
-			if(h_axis > 0 && !facingRight)
+			if(h_axis > 0 && facingRight)
 				Flip();
-			if(h_axis < 0 && facingRight)
+			if(h_axis < 0 && !facingRight)
 				Flip();
 			
 			KeyboardMove();
@@ -107,6 +113,7 @@ namespace App.Game.Player
 		{
 			
 		}
+
 	#region Input
 
 		void KeyboardMove()
