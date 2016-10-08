@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: e7004a2786630b944a329cfb8f66751e
-timeCreated: 1475962215
+timeCreated: 1475965998
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: cellDoor
+    21300002: objects_light_on
+    21300004: objects_light_off
+    21300006: objects_light_wire
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,6 +63,45 @@ TextureImporter:
         x: 3
         y: 44
         width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: objects_light_on
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 13
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: objects_light_off
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 13
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: objects_light_wire
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 44
+        width: 1
         height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
