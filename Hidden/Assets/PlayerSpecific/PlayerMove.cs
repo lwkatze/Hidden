@@ -10,7 +10,9 @@ namespace App.Game.Player
 {
 	public class PlayerMove : MonoBehaviour {
 
-
+		/// <summary>
+		/// Static reference to playerMove singleton
+		/// </summary>
 		public static PlayerMove playerMove;
 
 		/// <summary>
@@ -24,7 +26,6 @@ namespace App.Game.Player
 
 	#region Data
 
-		public float PowerPerJump = 25f;
 		private Vector2 moveVector;
 		private bool facingRight;
 		private float currentSpeed;
