@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Characters\InteractionHandler.cs" />
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\Characters\PlayerSpecific\ColliderResize.cs" />
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerHandler.cs" />
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\GlobalEventHandler.cs" />
