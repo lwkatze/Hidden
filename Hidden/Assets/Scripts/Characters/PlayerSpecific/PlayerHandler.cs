@@ -24,9 +24,14 @@ public class PlayerHandler : MonoBehaviour {
 		Debug.Log("col detected in playerHandler");
 	}
 
+	private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
+	{
+		Debug.Log("trig detected in playerHandler");
+	}
+		
 	private void subscribeEvents()
 	{
-		Debug.Log("heya");
 		handler.colFired += new colResponder(colResponse);
+		handler.trigFired += new trigResponder(trigResponse);
 	}
 }

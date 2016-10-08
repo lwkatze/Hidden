@@ -22,6 +22,10 @@ namespace App.Game.Utility
 		public List<string> rayCheckTags;
 		public List<string> rayCheckNames;
 
+		public Transform rayEndpoint;
+		public LayerMask raycastMask;
+		public bool raycastAll;
+
 		void OnCollisionEnter2D(Collision2D col)
 		{
 			Dispatch(this, col, new InteractionEventArgs(eventType.Enter));
@@ -54,7 +58,25 @@ namespace App.Game.Utility
 
 		void FixedUpdate()
 		{
+			if(rayEndpoint != null)
+			{
+				RaycastHit2D hit;
 
+				Vector2 direction = (transform.position.x < rayEndpoint.position.x)? Vector2.left : Vector2.right;
+				float distance = Mathf.Sqrt(Mathf.Pow(transform.position.x - rayEndpoint.position.x, 2f) + Mathf.Pow(transform.position.y - rayEndpoint.position.y, 2));
+
+				if(raycastAll)
+					hit = Physics2D.Linecast(transform.position, rayEndpoint.position);
+
+				else
+					hit = Physics2D.Raycast(transform.position, rayEndpoint.position, raycastMask);
+
+				if(hit.collider != null)
+				{
+					Dispatch(this, hit, new InteractionEventArgs(eventType.Nothing));
+					Debug.Log("Hit something: " + hit.collider.name);
+				}
+			}
 		}
 			
 		void Dispatch(object sender, Collision2D col, InteractionEventArgs args)

@@ -86,14 +86,19 @@ public class EnemyAI : MonoBehaviour
 		h_axis *= -1;
 	}
 
-	private void colResponse(object sender, Collision2D col, System.EventArgs e)
+	private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
 	{
 		Debug.Log("Col event detected in enemy " + gameObject.name);
 	}
 
-	private void trigResponse(object sender, Collider2D trig, System.EventArgs e)
+	private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
 	{
 		Debug.Log("Trig event detected in enemy " + gameObject.name);
+	}
+
+	private void rayResponse(object sender, RaycastHit2D cast, InteractionEventArgs e)
+	{
+		Debug.Log("Hit player with raycast!");
 	}
 
 	private void subscribeEvents()
