@@ -16,10 +16,7 @@ public class CharacterData : MonoBehaviour
 		public int playerSpeed { get; set; }
 
 		public Transform player;
-		public Transform spawn;
-		public List<Transform> spawns;
 		public Transform gndCheck;
-		public Transform startPlat;
 
 		/// <summary>
 		/// Is the player touching the ground?
@@ -70,17 +67,9 @@ public class CharacterData : MonoBehaviour
 		public Animator anim;
 		public Camera playerCam;
 		public float jumpForce = 7200f;
+		public float termVelocity = -60f;
 		public float moveSpeed = 20f;
 
-		/// <summary>
-		/// Battery's Capacity
-		/// </summary>
-		public float b_MaxPower = 100f;
-		public float b_Power;
-		public float b_PercentPower
-		{
-			get{ return b_Power/b_MaxPower ; }
-		}
 			
 		#endregion
 

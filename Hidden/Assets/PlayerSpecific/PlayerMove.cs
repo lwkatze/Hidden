@@ -91,9 +91,9 @@ namespace App.Game.Player
 			KeyboardMove();
 			moveVector = new Vector2(h_axis * data.moveSpeed, data.rgbody.velocity.y);
 
-			if(data.rgbody.velocity.y <= -60.0f)
+			if(data.rgbody.velocity.y <= data.termVelocity)
 			{
-				moveVector = new Vector2(moveVector.x, -60.0f);
+				moveVector = new Vector2(moveVector.x, data.termVelocity);
 			}
 
 			data.rgbody.velocity = moveVector;
@@ -134,8 +134,7 @@ namespace App.Game.Player
 		}
 		void Jump ()
 		{
-			data.anim.SetTrigger("Jump");
-
+			Debug.Log("Jumping");
 			if(data.gndBool == true)
 			{
 				data.rgbody.AddForce(new Vector2(0, jumpForce));
