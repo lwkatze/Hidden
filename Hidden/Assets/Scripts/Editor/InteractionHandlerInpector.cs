@@ -10,52 +10,137 @@ namespace CustomInspectors
 	{
 		private InteractionHandler handler { get { return target as InteractionHandler; } }	
 		private static GUILayoutOption miniButtonLength = GUILayout.Width(18f);
-	
-		private bool expandTag = false;
-		private bool expandName = false;
+		
+		private bool colExpandTag = false;
+		private bool colExpandName = false;
+
+		private bool trigExpandTag = false;
+		private bool trigExpandName = false;
+
+		private bool rayExpandTag = false;
+		private bool rayExpandName = false;
 
 		public override void OnInspectorGUI()
 		{
-			expandTag = EditorGUILayout.Foldout(expandTag, "Tags to check");
+			colExpandTag = EditorGUILayout.Foldout(colExpandTag, "Tags to check on collision");
 
-			if(expandTag)
+			if(colExpandTag)
 			{
-				for(int i = 0; i < handler.checkTags.Count; i++)
+				for(int i = 0; i < handler.colCheckTags.Count; i++)
 				{
-					handler.checkTags[i] = EditorGUILayout.TagField(handler.checkTags[i], GUILayout.Width(100f));
+					handler.colCheckTags[i] = EditorGUILayout.TagField(handler.colCheckTags[i], GUILayout.Width(100f));
 				}
 
 				GUILayout.BeginHorizontal();
 
 				if(GUILayout.Button("+", EditorStyles.miniButtonLeft, miniButtonLength))
-					handler.checkTags.Add("");
+					handler.colCheckTags.Add("");
 
 				if(GUILayout.Button("-", EditorStyles.miniButtonRight, miniButtonLength))
-					handler.checkTags.RemoveAt(handler.checkTags.Count - 1);
+					handler.colCheckTags.RemoveAt(handler.colCheckTags.Count - 1);
 
 				GUILayout.EndHorizontal();
 			}
 
-			expandName = EditorGUILayout.Foldout(expandName, "Names to check");
+			colExpandName = EditorGUILayout.Foldout(colExpandName, "Names to check on collision");
 
-			if(expandName)
+			if(colExpandName)
 			{
-				for(int i = 0; i < handler.checkNames.Count; i++)
+				for(int i = 0; i < handler.colCheckNames.Count; i++)
 				{
-					handler.checkNames[i] = EditorGUILayout.TextField(handler.checkNames[i], GUILayout.Width(100f));
+					handler.colCheckNames[i] = EditorGUILayout.TextField(handler.colCheckNames[i], GUILayout.Width(100f));
 				}
 
 				GUILayout.BeginHorizontal();
 
 				if(GUILayout.Button("+", EditorStyles.miniButtonLeft, miniButtonLength))
-					handler.checkNames.Add("");
+					handler.colCheckNames.Add("");
 
 				if(GUILayout.Button("-", EditorStyles.miniButtonRight, miniButtonLength))
-					handler.checkNames.RemoveAt(handler.checkNames.Count - 1);
+					handler.colCheckNames.RemoveAt(handler.colCheckNames.Count - 1);
 
 				GUILayout.EndHorizontal();
 			}
 
+			trigExpandTag = EditorGUILayout.Foldout(trigExpandTag, "Tags to check on trigger");
+
+			if(trigExpandTag)
+			{
+				for(int i = 0; i < handler.trigCheckTags.Count; i++)
+				{
+					handler.trigCheckTags[i] = EditorGUILayout.TagField(handler.trigCheckTags[i], GUILayout.Width(100f));
+				}
+
+				GUILayout.BeginHorizontal();
+
+				if(GUILayout.Button("+", EditorStyles.miniButtonLeft, miniButtonLength))
+					handler.trigCheckTags.Add("");
+
+				if(GUILayout.Button("-", EditorStyles.miniButtonRight, miniButtonLength))
+					handler.trigCheckTags.RemoveAt(handler.trigCheckTags.Count - 1);
+
+				GUILayout.EndHorizontal();
+			}
+
+			trigExpandName = EditorGUILayout.Foldout(trigExpandName, "Names to check on trigger");
+
+			if(colExpandName)
+			{
+				for(int i = 0; i < handler.trigCheckNames.Count; i++)
+				{
+					handler.trigCheckNames[i] = EditorGUILayout.TextField(handler.trigCheckNames[i], GUILayout.Width(100f));
+				}
+
+				GUILayout.BeginHorizontal();
+
+				if(GUILayout.Button("+", EditorStyles.miniButtonLeft, miniButtonLength))
+					handler.trigCheckNames.Add("");
+
+				if(GUILayout.Button("-", EditorStyles.miniButtonRight, miniButtonLength))
+					handler.trigCheckNames.RemoveAt(handler.trigCheckNames.Count - 1);
+
+				GUILayout.EndHorizontal();
+			}
+
+			rayExpandTag = EditorGUILayout.Foldout(rayExpandTag, "Tags to check on ray cast hit");
+
+			if(rayExpandTag)
+			{
+				for(int i = 0; i < handler.rayCheckTags.Count; i++)
+				{
+					handler.rayCheckTags[i] = EditorGUILayout.TagField(handler.rayCheckTags[i], GUILayout.Width(100f));
+				}
+
+				GUILayout.BeginHorizontal();
+
+				if(GUILayout.Button("+", EditorStyles.miniButtonLeft, miniButtonLength))
+					handler.rayCheckTags.Add("");
+
+				if(GUILayout.Button("-", EditorStyles.miniButtonRight, miniButtonLength))
+					handler.rayCheckTags.RemoveAt(handler.rayCheckTags.Count - 1);
+
+				GUILayout.EndHorizontal();
+			}
+
+			rayExpandName = EditorGUILayout.Foldout(rayExpandName, "Names to check on ray cast hit");
+
+			if(rayExpandName)
+			{
+				for(int i = 0; i < handler.rayCheckNames.Count; i++)
+				{
+					handler.rayCheckNames[i] = EditorGUILayout.TextField(handler.rayCheckNames[i], GUILayout.Width(100f));
+				}
+
+				GUILayout.BeginHorizontal();
+
+				if(GUILayout.Button("+", EditorStyles.miniButtonLeft, miniButtonLength))
+					handler.rayCheckNames.Add("");
+
+				if(GUILayout.Button("-", EditorStyles.miniButtonRight, miniButtonLength))
+					handler.rayCheckNames.RemoveAt(handler.rayCheckNames.Count - 1);
+
+				GUILayout.EndHorizontal();
+			}
 		}
 	}
 }

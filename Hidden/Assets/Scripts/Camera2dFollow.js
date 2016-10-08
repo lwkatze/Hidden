@@ -9,7 +9,7 @@
 // var pm : PauseMenu;
  
  function Start () { 
-   cameraObj = GameObject.FindGameObjectWithTag("CamHolder");
+   cameraObj = GameObject.FindGameObjectWithTag("MainCamera");
   // menu = GameObject.FindGameObjectWithTag("coinsSysMaster");
   // pm = menu.GetComponent(PauseMenu);
 

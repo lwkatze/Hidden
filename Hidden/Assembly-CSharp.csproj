@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Characters\PlayerSpecific\CharacterData.cs" />
      <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerHandler.cs" />
      <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerMove.cs" />
+     <Compile Include="Assets\Scripts\GlobalEventHandler.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
