@@ -82,8 +82,14 @@ namespace App.Game.Player
 
 		void Update()
 		{
-			MoveUpdate();
+			Debug.Log(data.rgbody.velocity.x);
+
 			Animations();
+		}
+
+		void LateUpdate()
+		{
+			MoveUpdate();
 		}
 
 	#endregion
