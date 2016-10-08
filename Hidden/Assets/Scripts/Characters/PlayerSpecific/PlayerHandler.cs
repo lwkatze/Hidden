@@ -7,14 +7,12 @@ using App.Game.Utility;
 public class PlayerHandler : MonoBehaviour {
 
 	//instance of InteractionHandler to receive events
-	private InteractionHandler handler;
+	public InteractionHandler handler;
 
 	void Start () 
 	{
-		handler = this.GetComponent<InteractionHandler>();
-
 		if(!handler)
-			handler = gameObject.AddComponent<InteractionHandler>();
+			Debug.LogError("Please give an instance of InteractionHandler");
 
 		subscribeEvents();
 	}

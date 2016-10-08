@@ -6,10 +6,13 @@ using System.Collections.Generic;
 
 namespace App.Game.Player
 {
-public class CharacterData : MonoBehaviour 
+	public delegate void animValueChanged (animValues value);
+
+	public class CharacterData : MonoBehaviour 
 	{
-		
 		public static CharacterData charaData;
+
+		public event animValueChanged animChanged;
 
 		#region Data
 
@@ -72,8 +75,27 @@ public class CharacterData : MonoBehaviour
 		public float moveSpeedPerSecond = 30f;
 		public bool moveWithVelocity = false;
 
-		[HideInInspector]public bool grapple;
-		[HideInInspector]public bool crouch;
+		[HideInInspector]public int walking 
+		{ 
+			get { return anim.GetInteger("Walking"); } 
+			set { anim.SetInteger("Walking", value); } 
+		}
+
+		[HideInInspector]public bool grapple 
+		{ 
+			get { return anim.GetBool("Grapple"); } 
+			set { anim.SetBool("Grapple", value); if(value == true) DispatchAnimChanged(animValues.grapple); else DispatchAnimChanged(animValues.idle); } 
+		}
+		[HideInInspector]public bool crouch 
+		{ 
+			get { return anim.GetBool("Crouch"); } 
+			set { anim.SetBool("Crouch", value); if(value == true) DispatchAnimChanged(animValues.crouch); else DispatchAnimChanged(animValues.idle); } 
+		}
+		[HideInInspector]public bool crawl 
+		{ 
+			get { return anim.GetBool("Crawl"); } 
+			set { anim.SetBool("Crawl", value); if(value == true) DispatchAnimChanged(animValues.crawl); DispatchAnimChanged(animValues.idle); } 
+		}
 		[HideInInspector]public bool interact;
 
 		#endregion
@@ -119,5 +141,22 @@ public class CharacterData : MonoBehaviour
 
 		#endregion
 
+		void DispatchAnimChanged(animValues value)
+		{
+			if(animChanged != null)
+			{
+				animChanged(value);
+			}
+			Debug.Log("Dispatch " + value.ToString());
+		}
+	}
+
+	public enum animValues
+	{
+		idle,
+		walk, 
+		grapple, 
+		crouch,
+		crawl
 	}
 }

@@ -43,6 +43,7 @@ namespace App.Game.Player
 
 		private bool overrideNM;
 
+
 	#region Data
 
 		private Vector2 moveVector;
@@ -119,23 +120,18 @@ namespace App.Game.Player
 			if(h_axis < 0 && !facingRight)
 				Flip();
 
-			KeyboardMove();
 
-			if(data.moveWithVelocity || !data.gndBool)
+			Debug.Log("Moving with position: " + moveVector);
+			moveVector = new Vector2(h_axis * data.moveSpeedPerSecond, 0);
+			data.transform.Translate(moveVector * Time.deltaTime);
+
+
+			if(h_axis == 0)
 			{
-				moveVector = new Vector2(h_axis * data.moveSpeed, data.rgbody.velocity.y);
-
-				if(data.rgbody.velocity.y <= data.termVelocity)
-				{
-					moveVector = new Vector2(moveVector.x, data.termVelocity);
-				}
-
-				data.rgbody.velocity = moveVector;
-			} else
-			{
-				moveVector = new Vector2(h_axis * data.moveSpeedPerSecond, 0);
-				data.transform.Translate(moveVector * Time.deltaTime);
+				stopNormalMovement();
 			}
+
+			Debug.Log("h_axis: " + h_axis);
 		}
 
 		/// <summary>
@@ -143,36 +139,28 @@ namespace App.Game.Player
 		/// </summary>
 		void Animations()
 		{
+			KeyboardUpdate();
 			if(!overrrideNormalMove)
 			{
 				if(h_axis > 0)
-					data.anim.SetInteger("Walking", 1);
+					data.walking = 1;
 				
 				else if(h_axis < 0)
-					data.anim.SetInteger("Walking", -1);
+					data.walking = -1;
 
 				else 
-					data.anim.SetInteger("Walking", 0);
+					data.walking = 0;
 			}
-			else
-			{
-				data.anim.SetBool("Grapple", data.grapple);
-			}
-
-			data.anim.SetBool("Crouch", data.crouch);
 		}
 
 	#region Input
 
-		void KeyboardMove()
+		void KeyboardUpdate()
 		{
+			h_axis = Input.GetAxis("Horizontal");
 			if(Input.GetButtonDown("Jump"))
 			{
 				this.SendMessage("Jump");
-			}
-			if(Input.GetButton("Horizontal"))
-			{
-				h_axis = Input.GetAxis("Horizontal");
 			}
 			if(Input.GetButtonUp("Horizontal"))
 			{
@@ -219,8 +207,9 @@ namespace App.Game.Player
 		{
 			h_axis = value;
 		}
+
 		void Jump ()
-		{
+		{/*
 			Debug.Log("Jumping");
 			if(data.gndBool == true)
 			{
@@ -230,7 +219,7 @@ namespace App.Game.Player
 			{
 				data.rgbody.velocity = new Vector2(data.rgbody.velocity.x, 0);
 				data.rgbody.AddForce(new Vector2(0, data.jumpForce));
-			}
+			}*/
 		}
 
 	#endregion
