@@ -70,7 +70,10 @@ public class CharacterData : MonoBehaviour
 		public float termVelocity = -60f;
 		public float moveSpeed = 20f;
 
-			
+		public bool grapple;
+		public bool crouch;
+		public bool interact;
+
 		#endregion
 
 		private void setValues()

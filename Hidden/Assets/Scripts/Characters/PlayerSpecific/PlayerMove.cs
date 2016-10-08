@@ -25,6 +25,24 @@ namespace App.Game.Player
 			get { return CharacterData.charaData; }
 		}
 
+		private bool overrrideNormalMove
+		{
+			get
+			{
+				return overrideNM;
+			}
+			set
+			{
+				if(data.grapple)
+					overrideNM = false;
+
+				else 
+					overrideNM = true;
+			}
+		}
+
+		private bool overrideNM;
+
 	#region Data
 
 		private Vector2 moveVector;
@@ -117,7 +135,23 @@ namespace App.Game.Player
 		/// </summary>
 		void Animations()
 		{
-			
+			if(!overrrideNormalMove)
+			{
+				if(h_axis > 0)
+					data.anim.SetInteger("Walking", 1);
+				
+				else if(h_axis < 0)
+					data.anim.SetInteger("Walking", -1);
+
+				else 
+					data.anim.SetInteger("Walking", 0);
+			}
+			else
+			{
+				data.anim.SetBool("Grapple", data.grapple);
+			}
+
+			data.anim.SetBool("Crouch", data.crouch);
 		}
 
 	#region Input
@@ -136,7 +170,38 @@ namespace App.Game.Player
 			{
 				h_axis = 0;
 			}
+			if(Input.GetButton("Grapple"))
+			{
+				data.grapple = true;
+			}
+			if(Input.GetButtonUp("Vertical"))
+			{
+				data.grapple = false;
+			}
+			if(Input.GetButton("Crouch"))
+			{
+				data.crouch = true;
+			}
+			if(Input.GetButtonUp("Crouch"))
+			{
+				data.crouch = false;
+			}
+			if(Input.GetButton("Interact"))
+			{
+				data.interact = !data.interact;
+			}
 		}
+
+		void Grapple()
+		{
+
+		}
+
+		void Crouch()
+		{
+			stopNormalMovement();
+		}
+
 		void Move(float value)
 		{
 			Debug.Log("Move Called");
@@ -167,14 +232,15 @@ namespace App.Game.Player
 		void Flip()
 		{
 			facingRight = !facingRight;
-			Vector3 theScale = data.player.transform.localScale;
-			theScale.x *= -1;
-			data.player.transform.localScale = theScale;
+			//Vector3 theScale = data.player.transform.localScale;
+			//theScale.x *= -1;
+			//data.player.transform.localScale = theScale;
 		}
 
-		public void overrideMove()
+		public void stopNormalMovement()
 		{
 			currentSpeed = h_axis = v_axis = 0;
+			data.rgbody.velocity = new Vector2(0,0);
 		}
 
 	#endregion
