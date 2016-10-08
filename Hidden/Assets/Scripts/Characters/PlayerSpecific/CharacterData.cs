@@ -24,7 +24,7 @@ public class CharacterData : MonoBehaviour
 		/// <value><c>true</c> if gnd bool; otherwise, <c>false</c>.</value>
 		[HideInInspector]public bool gndBool
 		{
-			get { return Physics2D.OverlapArea(gndCheck.position, new Vector2(gndCheck.position.x + 1f, gndCheck.position.y + 1f), gndMask) ; }
+			get { return Physics2D.OverlapCircle(gndCheck.position, gndRadius, gndMask) ; }
 		}
 
 		/// <summary>
@@ -69,10 +69,12 @@ public class CharacterData : MonoBehaviour
 		public float jumpForce = 7200f;
 		public float termVelocity = -60f;
 		public float moveSpeed = 20f;
+		public float moveSpeedPerSecond = 30f;
+		public bool moveWithVelocity = false;
 
-		public bool grapple;
-		public bool crouch;
-		public bool interact;
+		[HideInInspector]public bool grapple;
+		[HideInInspector]public bool crouch;
+		[HideInInspector]public bool interact;
 
 		#endregion
 

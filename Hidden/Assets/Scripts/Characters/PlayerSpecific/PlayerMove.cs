@@ -100,14 +100,14 @@ namespace App.Game.Player
 
 		void Update()
 		{
-			Debug.Log(data.rgbody.velocity.x);
-
 			Animations();
 		}
 
 		void LateUpdate()
 		{
 			MoveUpdate();
+
+			Debug.Log("gndbool: " + data.gndBool);
 		}
 
 	#endregion
@@ -118,16 +118,24 @@ namespace App.Game.Player
 				Flip();
 			if(h_axis < 0 && !facingRight)
 				Flip();
-			
+
 			KeyboardMove();
-			moveVector = new Vector2(h_axis * data.moveSpeed, data.rgbody.velocity.y);
 
-			if(data.rgbody.velocity.y <= data.termVelocity)
+			if(data.moveWithVelocity || !data.gndBool)
 			{
-				moveVector = new Vector2(moveVector.x, data.termVelocity);
-			}
+				moveVector = new Vector2(h_axis * data.moveSpeed, data.rgbody.velocity.y);
 
-			data.rgbody.velocity = moveVector;
+				if(data.rgbody.velocity.y <= data.termVelocity)
+				{
+					moveVector = new Vector2(moveVector.x, data.termVelocity);
+				}
+
+				data.rgbody.velocity = moveVector;
+			} else
+			{
+				moveVector = new Vector2(h_axis * data.moveSpeedPerSecond, 0);
+				data.transform.Translate(moveVector * Time.deltaTime);
+			}
 		}
 
 		/// <summary>
@@ -194,7 +202,7 @@ namespace App.Game.Player
 
 		void Grapple()
 		{
-
+			stopNormalMovement();
 		}
 
 		void Crouch()

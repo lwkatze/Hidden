@@ -74,7 +74,6 @@ namespace App.Game.Utility
 				if(hit.collider != null)
 				{
 					Dispatch(this, hit, new InteractionEventArgs(eventType.Nothing));
-					Debug.Log("Hit something: " + hit.collider.name);
 				}
 			}
 		}
