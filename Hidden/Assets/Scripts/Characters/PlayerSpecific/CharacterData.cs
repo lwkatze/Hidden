@@ -78,6 +78,7 @@ namespace App.Game.Player
 		public float moveSpeedPerSecond = 30f;
 		public int hideSortLayer = -2;
 		public bool moveWithVelocity = false;
+		public bool canInteract = false;
 		public bool isHiding = false;
 
 		[HideInInspector] public float h_axis;
@@ -237,12 +238,12 @@ namespace App.Game.Player
 			h_axis = Input.GetAxis("Horizontal");
 
 			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis == 0)? 0 : -1));
-			Debug.Log(anim.GetInteger("CrawlWalk"));
+
 			if(Input.GetButtonUp("Horizontal"))
 			{
 				h_axis = 0;
 			}
-			if(Input.GetButtonDown("Interact"))
+			if(Input.GetButtonDown("Interact") && canInteract)
 			{
 				interact = (interact > 0)? 0 : 1;	//toggle interact
 				beneathToZero(inputValues.interact);
@@ -289,11 +290,6 @@ namespace App.Game.Player
 			}
 				
 			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
-
-			Debug.Log("Walk: " + walk);
-			Debug.Log("Crouch: " + crouch);
-			Debug.Log("Crawl: " + crawl);
-			Debug.Log("Grapple: " + grapple);
 		}
 
 		//Set all elements lower than the given element to zero
@@ -303,7 +299,6 @@ namespace App.Game.Player
 
 			for(int i = keys.IndexOf(value) + 1; i < keys.Count; i++)
 			{
-				Debug.Log(keys[i].ToString() + " is " + inputHierarchy[keys[i]]);
 				inputHierarchy[keys[i]] = 0;
 			}
 

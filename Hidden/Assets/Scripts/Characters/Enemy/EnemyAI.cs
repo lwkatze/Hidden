@@ -13,114 +13,198 @@
 using UnityEngine;
 using System.Collections;
 using App.Game.Utility;
+using App.Game.Player;
 
-public class EnemyAI : MonoBehaviour 
+namespace App.Game.Enemy
 {
-	//instance of Enemydata
-	private EnemyData data;
-
-	//instance of InteractionHandler to receive events
-	private InteractionHandler handler;
-
-	public float speed;		//speed at which guard walks
-	public float patrolDistance;	//distance of each patrol cycle
-	public float startDist;	//the start distance of the enemy as a percent between 
-	public float timeToReact;	//time between when the guard sees player and reacts to player
-
-	public bool startRight = true;
-
-	private Vector3 initPos; //the initial position on run
-
-	private float h_axis = 1;
-
-	private bool facingRight; //is the enemy currently facing right?
-
-	void Awake()
+	public class EnemyAI : MonoBehaviour 
 	{
-		data = gameObject.GetComponent<EnemyData>();
+		//instance of Enemydata
+		private EnemyData data;
 
-		if(data == null)
-			Debug.LogError("You forgot to add an enemy data instance to this enemy.");
+		//instance of InteractionHandler to receive events
+		private InteractionHandler handler;
+
+		public Transform rayEndPoint;
+		public float speed;		//speed at which guard walks
+		public float runSpeed;  //speed at which guard runs
+		public float patrolDistance;	//distance of each patrol cycle
+		public float startDist;	//the start distance of the enemy as a percent between 
+		public float timeToReact;	//time between when the guard sees player and reacts to player
+		public float escapeDistance;
+
+		public bool startRight = true;
+		public bool rayCastAll = true;
+		public LayerMask rayMask;
+
+		private bool detectPlayer;
+		private bool prevDetectPlayer;
+		private bool pursue = false;
+
+		private Vector3 initPos; //the initial position on run
+		private Transform player { get { return CharacterData.charaData.transform; } }//reference to the player
+
+		private float h_axis = 1;
+
+		private bool facingRight; //is the enemy currently facing right?
+
+		void Awake()
+		{
+			data = gameObject.GetComponent<EnemyData>();
+
+			if(data == null)
+				Debug.LogError("You forgot to add an enemy data instance to this enemy.");
+		}
+
+		void Start () 
+		{
+			handler = this.GetComponent<InteractionHandler>();
+
+			if(!handler)
+				handler = gameObject.AddComponent<InteractionHandler>();
+
+			subscribeEvents();
+			initilizer();
+		}
+
+		void Update()
+		{
+			RayCast();
+			AI();
+		}
+
+		#region Movement
+
+		void AI()
+		{
+			if(!detectPlayer)
+				patrol();
+
+			else if(detectPlayer && !prevDetectPlayer)
+				startPersuit();
+
+			if(pursue)
+				pursuit();
+
+			prevDetectPlayer = detectPlayer;
+		}
+
+		void patrol()
+		{
+			data.rgbody.velocity = new Vector2(speed*h_axis, data.rgbody.velocity.y);
+
+			if(transform.position.x <= initPos.x && facingRight)
+				Flip();
+
+			if(transform.position.x >= initPos.x + patrolDistance && !facingRight)
+				Flip();
+		}
+
+		void startPersuit()
+		{
+			StartCoroutine(timePersuit(timeToReact));
+		}
+
+		void pursuit()
+		{
+			int direction = (player.transform.position.x > transform.position.x)? 1 : -1;
+
+			transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
+
+			if(Mathf.Abs(player.transform.position.x - transform.position.x) > escapeDistance)
+			{
+				detectPlayer = false;
+				pursue = false;
+			}
+		}
+
+		IEnumerator timePersuit(float seconds)
+		{
+			yield return new WaitForSeconds(seconds);
+
+			pursue = true;
+		}
+
+		#endregion
+
+		#region Utility/Setup Functions
+
+		void RayCast()
+		{
+			if(rayEndPoint != null)
+			{
+				RaycastHit2D hit;
+
+				Vector2 direction = (transform.position.x < rayEndPoint.position.x)? Vector2.left : Vector2.right;
+				float distance = Mathf.Sqrt(Mathf.Pow(transform.position.x - rayEndPoint.position.x, 2f) + Mathf.Pow(transform.position.y - rayEndPoint.position.y, 2));
+
+				if(rayCastAll)
+					hit = Physics2D.Linecast(transform.position, rayEndPoint.position);
+
+				else
+					hit = Physics2D.Raycast(transform.position, rayEndPoint.position, rayMask);
+
+				if(hit.collider != null)
+				{
+					if(hit.transform.tag == "Player")
+						detectPlayer = true;
+				}
+			}
+		}
+
+		void Flip()
+		{
+			facingRight = !facingRight;
+			Vector3 theScale = transform.localScale;
+			theScale.x *= -1;
+			transform.localScale = theScale;
+
+			h_axis *= -1;
+
+			data.walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
+		}
+
+		private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
+		{
+			if(col.transform.tag == "SceneObject")
+				Flip();		
+		}
+
+		private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
+		{
+			
+		}
+
+		private void rayResponse(object sender, RaycastHit2D cast, InteractionEventArgs e)
+		{
+			if(cast.transform.tag == "Player")
+			{
+				detectPlayer = true;
+			}
+		}
+
+		private void subscribeEvents()
+		{
+			handler.colFired += new colResponder(colResponse);
+			handler.rayHit += new rayResponder(rayResponse);
+			//handler.trigFired += new trigResponder(trigResponse);
+		}
+			
+		private void initilizer()
+		{
+			initPos = transform.position;
+
+			transform.position = new Vector2(initPos.x + (patrolDistance * startDist), transform.position.y);
+
+			if(!startRight)
+				Flip();
+		}
+
+		private IEnumerator waitSeconds(float sec) 
+		{
+			yield return new WaitForSeconds(sec);
+		}
+
+		#endregion
 	}
-
-	void Start () 
-	{
-		handler = this.GetComponent<InteractionHandler>();
-
-		if(!handler)
-			handler = gameObject.AddComponent<InteractionHandler>();
-
-		subscribeEvents();
-		initilizer();
-	}
-
-	void Update()
-	{
-		patrol();
-	}
-
-	#region Movement
-
-	void patrol()
-	{
-		data.rgbody.velocity = new Vector2(speed*h_axis, data.rgbody.velocity.y);
-
-		if(transform.position.x <= initPos.x && facingRight)
-			Flip();
-
-		if(transform.position.x >= initPos.x + patrolDistance && !facingRight)
-			Flip();
-	}
-
-	#endregion
-
-	#region Utility/Setup Functions
-
-	void Flip()
-	{
-		facingRight = !facingRight;
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
-
-		h_axis *= -1;
-	}
-
-	private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
-	{
-		Debug.Log("Col event detected in enemy " + gameObject.name);
-	}
-
-	private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
-	{
-		Debug.Log("Trig event detected in enemy " + gameObject.name);
-	}
-
-	private void rayResponse(object sender, RaycastHit2D cast, InteractionEventArgs e)
-	{
-		Debug.Log("Hit player with raycast!");
-	}
-
-	private void subscribeEvents()
-	{
-		handler.colFired += new colResponder(colResponse);
-		handler.trigFired += new trigResponder(trigResponse);
-	}
-		
-	private void initilizer()
-	{
-		initPos = transform.position;
-
-		transform.position = new Vector2(initPos.x + (patrolDistance * startDist), transform.position.y);
-
-		if(!startRight)
-			Flip();
-	}
-
-	private IEnumerator waitSeconds(float sec) 
-	{
-		yield return new WaitForSeconds(sec);
-	}
-
-	#endregion
 }

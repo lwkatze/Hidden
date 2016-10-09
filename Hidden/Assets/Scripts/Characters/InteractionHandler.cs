@@ -140,6 +140,8 @@ namespace App.Game.Utility
 		{
 			bool condition = false;
 
+			Debug.Log("Hit something: " + cast.transform.name);
+
 			if(rayCheckTags != null)
 			{
 				foreach(string str in rayCheckTags)

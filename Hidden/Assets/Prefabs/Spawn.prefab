@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010951290940}
   - 58: {fileID: 58000011083198590}
   - 114: {fileID: 114000013834811484}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spawn
   m_TagString: Respawn
   m_Icon: {fileID: 0}

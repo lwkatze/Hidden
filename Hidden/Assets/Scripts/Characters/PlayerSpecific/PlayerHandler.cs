@@ -13,7 +13,6 @@ namespace App.Game.Player
 
 		private CharacterData data { get { return CharacterData.charaData; } }
 		private GameObject hideObj;
-		private bool canHide;
 
 		void Start () 
 		{
@@ -25,10 +24,10 @@ namespace App.Game.Player
 
 		void Update()
 		{
-			if(canHide && data.interact > 0)
+			if(data.canInteract && data.interact > 0)
 				interact();
 
-			else if(canHide && data.interact <= 0)
+			else if(data.canInteract && data.interact <= 0)
 			{
 				data.rend.sortingOrder = 0;
 				data.rgbody.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -52,12 +51,12 @@ namespace App.Game.Player
 		{
 			if(trig.gameObject.tag == "Locker" && e.type == eventType.Enter)
 			{
-				canHide = true;
+				data.canInteract = true;
 				hideObj = trig.gameObject;
 			}
 
 			else if(trig.gameObject.tag == "Locker" && e.type == eventType.Exit)
-				canHide = false;
+				data.canInteract = false;
 		}
 			
 		private void subscribeEvents()
