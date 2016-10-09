@@ -139,22 +139,25 @@ namespace App.Game.Player
 
 		private void Move()
 		{
-			if(IntToBool(Mathf.Abs(data.walk)) || IntToBool(data.jump))
-				NormalMove();
-
-			else
+			if(data.interact <= 0)
 			{
-				crawl();
-				crouch();
-				grapple();
-			}	
+				if(IntToBool(Mathf.Abs(data.walk)) || IntToBool(data.jump))
+					NormalMove();
 
-			if(data.crawl == 0 && data.crouch == 0)
-				resizer.resizeCollider(inputValues.idle);
+				else
+				{
+					crawl();
+					crouch();
+					grapple();
+				}	
 
-			if(data.rgbody.velocity.y <= data.termVelocity)
-			{
-				data.rgbody.velocity = new Vector2(data.rgbody.velocity.x, data.termVelocity);
+				if(data.crawl == 0 && data.crouch == 0)
+					resizer.resizeCollider(inputValues.idle);
+
+				if(data.rgbody.velocity.y <= data.termVelocity)
+				{
+					data.rgbody.velocity = new Vector2(data.rgbody.velocity.x, data.termVelocity);
+				}
 			}
 		}
 
@@ -181,7 +184,7 @@ namespace App.Game.Player
 
 			resetCrawl();
 		}
-
+			
 		/// <summary>
 		/// Returns 1 if grappling instance is not null
 		/// </summary>
