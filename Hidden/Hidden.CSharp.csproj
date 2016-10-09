@@ -69,7 +69,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LightFlicker.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Characters\InteractionHandler.cs" />
@@ -78,8 +77,10 @@
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerHandler.cs" />
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\GlobalEventHandler.cs" />
+    <Compile Include="Assets\Scripts\LightFlicker.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Parallaxing.cs" />
+    <Compile Include="Assets\Scripts\Tilt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
