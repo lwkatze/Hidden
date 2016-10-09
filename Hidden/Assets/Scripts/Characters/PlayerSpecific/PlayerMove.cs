@@ -36,6 +36,7 @@ namespace App.Game.Player
 
 		public float maxGrappleDistance = 50f;
 		public float distToLockCrawl = 0.5f;
+		public float crawlAdjustment = 0.05f;
 
 		/// <summary>
 		/// Access to the Characterdata singleton
@@ -54,7 +55,11 @@ namespace App.Game.Player
 
 		private CreateProjectile proj;
 
-		private bool prevGrapple;
+		private int prevGrapple;
+		private int prevCrouch;
+		private int prevCrawl;
+
+		private bool hitPipe = false;
 
 		private bool isDesktop
 		{
@@ -100,6 +105,8 @@ namespace App.Game.Player
 
 		void Start()
 		{
+			resizer.resizeCollider(inputValues.idle);
+
 			if(grapHook == null)
 				Debug.LogError("You need to include a reference to the GrappleHook object!");
 
@@ -115,15 +122,24 @@ namespace App.Game.Player
 		void LateUpdate()
 		{
 			Move();
-
-			Debug.Log("gndbool: " + data.gndBool);
 		}
 
+		void OnCollisionEnter2D(Collision2D col)
+		{
+			if(col.gameObject.tag == "GrappleObject" || col.gameObject.name == "Pipe" || col.gameObject.name == "Pipes")
+				hitPipe = true;
+		}
+
+		void OnCollisionExit2D(Collision2D col)
+		{
+			if(col.gameObject.tag == "GrappleObject" || col.gameObject.name == "Pipe" || col.gameObject.name == "Pipes")
+				hitPipe = false;
+		}
 	#endregion
 
 		private void Move()
 		{
-			if(data.getInputValue(inputValues.walk) != 0 || IntToBool(data.getInputValue(inputValues.jump)))
+			if(IntToBool(Mathf.Abs(data.getInputValue(inputValues.walk))) || IntToBool(data.getInputValue(inputValues.jump)))
 				NormalMove();
 
 			else
@@ -135,13 +151,16 @@ namespace App.Game.Player
 
 			if(data.getInputValue(inputValues.crawl) == 0 && data.getInputValue(inputValues.crouch) == 0)
 				resizer.resizeCollider(inputValues.idle);
+
+			if(data.rgbody.velocity.y <= data.termVelocity)
+			{
+				data.rgbody.velocity = new Vector2(data.rgbody.velocity.x, data.termVelocity);
+			}
 		}
 
 		//normal movement: walk and jump
 		void NormalMove ()
 		{
-			Debug.Log("Normal Move");
-
 			if(data.h_axis > 0 && facingRight)
 				Flip();
 			if(data.h_axis < 0 && !facingRight)
@@ -154,6 +173,11 @@ namespace App.Game.Player
 			{
 					data.rgbody.AddForce(new Vector2(0, data.jumpForce));
 			}
+
+			if(proj != null)
+				clearGrapple();
+
+			resetCrawl();
 		}
 
 		/// <summary>
@@ -162,67 +186,104 @@ namespace App.Game.Player
 		void grapple()
 		{
 			//do grapple
-			if(IntToBool(data.getInputValue(inputValues.grapple)) && !prevGrapple)
+			if(IntToBool(data.getInputValue(inputValues.grapple)) && !IntToBool(prevGrapple))
 			{
 				proj = new CreateProjectile(grapHook, grapStart.position, ((Vector2)grapStart.position)+(grappleDirection), data.moveSpeedPerSecond, 90f);
 			} 
-
+				
 			//destroy grapple if let up
-			else if(!IntToBool(data.getInputValue(inputValues.grapple)) || proj.projectile.distance > maxGrappleDistance)
+			else if(!IntToBool(data.grapple))
 			{
 				if(proj != null)
+				{
 					proj.deleteProjectile();
-			}
+					proj = null;
+				}
 
+				data.rgbody.isKinematic = false;
+			}
+				
 			if(proj != null && proj.projectile != null)
 			{
 				//if the projectile is locked in position
 				if(proj.projectile.locked)
 				{
-					Debug.Log("Attempting to transform");
-					transform.Translate(grappleDirection * data.moveSpeedPerSecond * Time.deltaTime);
+					data.rgbody.isKinematic = true;
+					this.transform.Translate(grappleDirection * data.moveSpeedPerSecond * Time.deltaTime, Space.World);
 
-					if(CreateProjectile.distance((Vector2)transform.position, (Vector2)proj.projectile.transform.position) < distToLockCrawl)
+					if(CreateProjectile.distance((Vector2)grapStart.position, (Vector2)proj.projectile.transform.position) < distToLockCrawl)
 					{
 						data.crawl = 1;
-						proj.deleteProjectile();
+						data.grapple = 0;
+						data.rgbody.isKinematic = false;
 					}
 				}
 			}
-
-			Debug.Log(IntToBool(data.getInputValue(inputValues.grapple)));
-			prevGrapple = IntToBool(data.getInputValue(inputValues.grapple));
+				
+			prevGrapple = data.getInputValue(inputValues.grapple);
 		}
 
 		int crawl()
 		{
 			int theReturn = 0;
 
-			if(IntToBool(data.getInputValue(inputValues.crawl)))
+			if(IntToBool(data.crawl) && !IntToBool(prevCrawl))
+			{
+				hitPipe = false;
+
+				data.rgbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+				resizer.resizeCollider(inputValues.crawl);
+
+				for(int i = 0; i < 10; i++)
+				{
+					if(hitPipe == true)
+						break;
+					
+					transform.Translate(0f, crawlAdjustment, 0f, Space.World);
+				}
+			}
+
+			if(IntToBool(data.getInputValue(inputValues.crawl)) && hitPipe)
 			{
 				theReturn = 0;
-
-				data.rgbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-
-				resizer.resizeCollider(inputValues.crawl);
 
 				moveVector = new Vector2(data.h_axis * data.crawlSpeed, 0);
 				data.transform.Translate(data.h_axis * data.crawlSpeed * Time.deltaTime, 0f, 0f, Space.World);
 
-				if(Input.GetButton("Crouch"))
+				if(Input.GetButtonDown("Crouch"))
+				{
+					data.anim.SetBool("Crawl", false);
+					data.rgbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+					data.crawl = 0;
 					theReturn = 0;
+				}
 			}
+
+			prevCrawl = data.crawl;
 
 			return theReturn;
 		}
 			
 		int crouch()
 		{
-			int theReturn = data.crouch;
+			int theReturn = data.getInputValue(inputValues.crouch);
 
-			resizer.resizeCollider(inputValues.crouch);
+			if(IntToBool(theReturn))
+				resizer.resizeCollider(inputValues.crouch);
 
 			return theReturn;
+		}
+
+		void clearGrapple()
+		{
+			proj.deleteProjectile();
+			proj = null;
+		}
+
+		void resetCrawl()
+		{
+			if(Input.GetButtonDown("Crouch"))
+				data.crawl = 0;
 		}
 
 	#region Input

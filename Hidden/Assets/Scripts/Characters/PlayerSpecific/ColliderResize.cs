@@ -7,9 +7,12 @@ namespace App.Game.Player
 	{
 		private CharacterData data { get { return CharacterData.charaData; } } 
 
+		public float adjustmentIncremenet = 0.1f;
 		public Vector2 crouchResize;
 		public Vector2 crawlResize;
 		private Vector2 normalSize = new Vector2(1f, 1f);
+
+		private bool hitPipe;
 
 		public void resizeCollider(inputValues value)
 		{
@@ -27,6 +30,11 @@ namespace App.Game.Player
 			{
 				transform.localScale = normalSize;
 			}
+		}
+
+		void OnCollision2D()
+		{
+
 		}
 	}
 }

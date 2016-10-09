@@ -32,7 +32,6 @@ namespace App.Game.Utility
 
 		void OnCollisionEnter2D(Collision2D col)
 		{
-			Debug.Log("Collision Enter colCheckTags: " + colCheckTags.Count + " object name: " + transform.gameObject.name);
 			Dispatch(this, col, new InteractionEventArgs(eventType.Enter));
 		}
 

@@ -29,7 +29,7 @@ public class PlayerHandler : MonoBehaviour
 		
 	private void subscribeEvents()
 	{
-		handler.colFired += new colResponder(colResponse);
+		//handler.colFired += new colResponder(colResponse);
 		handler.trigFired += new trigResponder(trigResponse);
 	}
 }

@@ -101,7 +101,7 @@ namespace App.Game.Player
 			{ 
 				inputHierarchy[inputValues.crouch] = value; 
 				anim.SetBool("Crouch", (value > 0)? true : false);
-			} 
+			}
 		}
 
 		public int grapple
@@ -168,11 +168,16 @@ namespace App.Game.Player
 			{
 				Destroy(gameObject);
 			}
+
+			/*List<inputValues> list = new List<inputValues>(inputHierarchy.Keys);
+			foreach(inputValues values in list)
+			{
+				Debug.Log("Value: " + values.ToString());
+			}*/
 		}
 
 		void Update()
 		{
-			Debug.Log("gndbool: " + gndBool);
 			prev_distFromGnd = distFromGnd;
 			KeyboardUpdate();
 		}
@@ -183,9 +188,9 @@ namespace App.Game.Player
 		{
 			{inputValues.interact, 0},
 			{inputValues.crawl, 0},
-			{inputValues.crouch, 0},
 			{inputValues.grapple, 0},
 			{inputValues.jump, 0},
+			{inputValues.crouch, 0},
 			{inputValues.walk, 0},
 			{inputValues.idle, 0}
 		};
@@ -206,8 +211,11 @@ namespace App.Game.Player
 				}
 
 				//break if a item with higher priority is true
-				if(inputHierarchy[keys[i]] == 1 && inputHierarchy[keys[i]] != inputHierarchy[value])
+				if(inputHierarchy[keys[i]] == 1 && keys[i] != value)
+				{
+					theReturn = 0;
 					break;
+				}
 
 				//break when element is found
 				if(keys[i] == value)
@@ -230,6 +238,8 @@ namespace App.Game.Player
 			h_axis = Input.GetAxis("Horizontal");
 
 			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
+
+			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
 
 			if(Input.GetButtonDown("Jump"))
 			{

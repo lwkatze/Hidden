@@ -11,17 +11,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013087915006}
   m_IsPrefabParent: 1
---- !u!1 &1000012352870812
+--- !u!1 &1000011148385774
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000010493719926}
-  - 212: {fileID: 212000010383688784}
+  - 4: {fileID: 4000010999430586}
+  - 212: {fileID: 212000011148688226}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,13 +47,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010493719926
+--- !u!4 &4000010999430586
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012352870812}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1000011148385774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71,7 +71,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 4000010493719926}
+  - {fileID: 4000010999430586}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &50000010602346898
@@ -82,7 +82,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013087915006}
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -116,10 +116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688d96e23e8304d5682dab819ae09b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 4000010493719926}
-  destination: {x: 0, y: 0}
+  sprite: {fileID: 4000010999430586}
+  destination: {x: 0, y: 1}
   angleAddition: 0
   speedPerSecond: 0
+  locked: 0
   angle: 0
   grappleDirection: {x: 0, y: 1}
 --- !u!114 &114000013576742472
@@ -164,7 +165,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 260c6436b2cec4cb99b6c53b21d00fe9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -188,17 +189,17 @@ LineRenderer:
     endWidth: 0.05
     m_StartColor:
       serializedVersion: 2
-      rgba: 4278190080
+      rgba: 4281102512
     m_EndColor:
       serializedVersion: 2
-      rgba: 4278190080
+      rgba: 4279594431
   m_UseWorldSpace: 1
---- !u!212 &212000010383688784
+--- !u!212 &212000011148688226
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012352870812}
+  m_GameObject: {fileID: 1000011148385774}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
