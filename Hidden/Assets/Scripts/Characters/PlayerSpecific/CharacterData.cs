@@ -232,15 +232,10 @@ namespace App.Game.Player
 
 		void KeyboardUpdate()
 		{
-			/*Debug.Log("Grapple: " + getInputValue(inputValues.grapple));
-			Debug.Log("Walk: " + getInputValue(inputValues.walk));
-			Debug.Log("Crouch: " + getInputValue(inputValues.crouch));
-			Debug.Log("Jump: " + getInputValue(inputValues.jump));*/
-
 			h_axis = Input.GetAxis("Horizontal");
 
-			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
-
+			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis == 0)? 0 : -1));
+			Debug.Log(anim.GetInteger("CrawlWalk"));
 			if(Input.GetButtonUp("Horizontal"))
 			{
 				h_axis = 0;
