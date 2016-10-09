@@ -24,6 +24,7 @@ public class AudioController : MonoBehaviour
     public AudioClip prisonerLines2;
     public AudioClip prisonerLines3;
 
+    bool inEnemyRange;
 
     void Start()
     {
@@ -35,8 +36,8 @@ public class AudioController : MonoBehaviour
 
         sourceFX.volume = 1f;
         sourceAmbient.volume = 1f;
-        sourceMusic.volume = 0.2f;
-        sourceMusic.pitch = 0.7f;
+        sourceMusic.volume = 0.05f;
+        sourceMusic.pitch = 0.1f;
     }
 
     void Update()
@@ -49,6 +50,15 @@ public class AudioController : MonoBehaviour
         {
             sourceMusic.PlayOneShot(musicLoop);
         }
+        if (inEnemyRange)
+        {
+            sourceAmbient.volume = Mathf.Lerp(sourceAmbient.volume, 0.1f, Time.deltaTime * 4f);
+            sourceMusic.volume = Mathf.Lerp(sourceMusic.volume, 0.6f, Time.deltaTime * 4f);
+        } else
+        {
+            sourceAmbient.volume = Mathf.Lerp(sourceAmbient.volume, 0.8f, Time.deltaTime * 4f);
+            sourceMusic.volume = Mathf.Lerp(sourceMusic.volume, 0.05f, Time.deltaTime * 4f);
+        }
     }
 
 
@@ -56,7 +66,8 @@ public class AudioController : MonoBehaviour
     {
         if (obj.tag == "Enemy") //Enters enemy trigger space, which should be pretty large
         {
-            //StartCoroutine(MusicFadeIn())
+            inEnemyRange = true;
+            //sourceAmbient.volume = Mathf.lerp(audio.volume, 0, time.deltatime); Dontdestroyonload(game object);
         }
         else if (obj.tag == "Prisoner")
         {
@@ -88,7 +99,7 @@ public class AudioController : MonoBehaviour
     {
         if (obj.tag == "Enemy") //Exits enemy trigger space, which should be pretty large
         {
-            //StartCoroutine(MusicFadeOut())
+            inEnemyRange = false;
         }
     }
 
