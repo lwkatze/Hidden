@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LightFlicker.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Characters\InteractionHandler.cs" />
