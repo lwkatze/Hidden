@@ -28,7 +28,7 @@ public class Parallaxing : MonoBehaviour {
         }
         for (int i = 0; i < foregrounds.Length; i++)
         {
-            parallaxScales2[i] = foregrounds[i].position.z;
+            parallaxScales2[i] = foregrounds[i].position.z * -1;
         }
     }
 	

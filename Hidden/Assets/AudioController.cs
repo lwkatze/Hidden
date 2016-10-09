@@ -34,10 +34,10 @@ public class AudioController : MonoBehaviour
         sourceAmbient = audios[1]; //Volume & Pitch Control Dripping / Ambient
         sourceFX = audios[2]; //Volume Control FX
 
-        sourceFX.volume = 1f;
+        sourceFX.volume = 0.2f;
         sourceAmbient.volume = 1f;
         sourceMusic.volume = 0.05f;
-        sourceMusic.pitch = 0.1f;
+        sourceMusic.pitch = 0.4f;
     }
 
     void Update()
@@ -54,10 +54,13 @@ public class AudioController : MonoBehaviour
         {
             sourceAmbient.volume = Mathf.Lerp(sourceAmbient.volume, 0.1f, Time.deltaTime * 4f);
             sourceMusic.volume = Mathf.Lerp(sourceMusic.volume, 0.6f, Time.deltaTime * 4f);
+            sourceMusic.pitch = Mathf.Lerp(sourceMusic.pitch, 0.75f, Time.deltaTime * 2f);
+
         } else
         {
-            sourceAmbient.volume = Mathf.Lerp(sourceAmbient.volume, 0.8f, Time.deltaTime * 4f);
+            sourceAmbient.volume = Mathf.Lerp(sourceAmbient.volume, 1f, Time.deltaTime * 4f);
             sourceMusic.volume = Mathf.Lerp(sourceMusic.volume, 0.05f, Time.deltaTime * 4f);
+            sourceMusic.pitch = Mathf.Lerp(sourceMusic.pitch, 0.4f, Time.deltaTime * 2f);
         }
     }
 
