@@ -21,6 +21,7 @@ namespace App.Game.Player
 		public Transform player;
 		public Transform gndCheck;
 
+		public List<Vector3> spawnPoints = new List<Vector3>();
 		/// <summary>
 		/// Is the player touching the ground?
 		/// </summary>
@@ -237,10 +238,6 @@ namespace App.Game.Player
 
 			h_axis = Input.GetAxis("Horizontal");
 
-			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
-
-			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
-
 			if(Input.GetButtonDown("Jump"))
 			{
 				jump = 1;
@@ -273,6 +270,10 @@ namespace App.Game.Player
 			{
 				interact = (interact > 0)? 1 : 0;
 			}
+
+			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
+
+			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
 		}
 	}
 

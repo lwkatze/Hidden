@@ -4,35 +4,44 @@ using UnityEngine;
 using System.Collections;
 using App.Game.Utility;
 
-public class PlayerHandler : MonoBehaviour 
+namespace App.Game.Player
 {
-	//instance of InteractionHandler to receive events
-	public InteractionHandler handler;
+	public class PlayerHandler : MonoBehaviour 
+	{
+		//instance of InteractionHandler to receive events
+		public InteractionHandler handler;
 
-	void Start () 
-	{
-		subscribeEvents();
-	}
+		private CharacterData data { get { return CharacterData.charaData; } }
 
-	private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
-	{
-		Debug.Log("col detected in playerHandler");
-	}
+		void Start () 
+		{
+			subscribeEvents();
+		}
 
-	private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
-	{
-		Debug.Log("trig detected in playerHandler");
-	}
-		
-	private void subscribeEvents()
-	{
-		//handler.colFired += new colResponder(colResponse);
-		handler.trigFired += new trigResponder(trigResponse);
-	}
+		private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
+		{
+			Debug.Log("col detected in playerHandler");
+		}
 
-	private void OnActuator(ActuatorArgs args)
-	{
-		if(args.sender.tag == "Respawn")
-			Debug.Log("Respawn");
+		private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
+		{
+			Debug.Log("trig detected in playerHandler");
+		}
+			
+		private void subscribeEvents()
+		{
+			//handler.colFired += new colResponder(colResponse);
+			handler.trigFired += new trigResponder(trigResponse);
+		}
+
+		private void OnActuator(ActuatorArgs args)
+		{
+			if(args.sender.tag == "Respawn")
+			{
+				data.spawnPoints.Add(args.sender.transform.position);
+			}
+		}
+
+
 	}
 }
