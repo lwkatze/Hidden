@@ -10,8 +10,6 @@ TagManager:
   - GrappleObject
   - Locker
   - SceneObject
-  - Prisoner
-  - Death
   layers:
   - Default
   - TransparentFX
