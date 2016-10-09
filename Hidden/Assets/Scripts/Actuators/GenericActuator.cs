@@ -8,14 +8,14 @@ namespace App.Game.Utility
 	public class GenericActuator : MonoBehaviour 
 	{
 		public actuatorType actType;
-		public Transform target;
+		public Transform[] targets;
 		public string[] names;
 		public string[] tags;
 		public int initialState;
 
-		private int state;
+		protected int state;
 
-		void OnTriggerEnter2D(Collider2D trig)
+		protected virtual void OnTriggerEnter2D(Collider2D trig)
 		{
 			if(names != null)
 			{
@@ -48,7 +48,7 @@ namespace App.Game.Utility
 			}
 		}
 
-		void OnTriggerExit2D(Collider2D trig)
+		protected virtual void OnTriggerExit2D(Collider2D trig)
 		{
 			if(names != null)
 			{
@@ -75,7 +75,7 @@ namespace App.Game.Utility
 			}
 		}
 
-		void updateState()
+		protected virtual void updateState()
 		{
 			//switch states
 			if(actType == actuatorType.on_off_sensor)
@@ -94,9 +94,15 @@ namespace App.Game.Utility
 			}
 		}
 
-		void trigDispatch()
+		protected virtual void trigDispatch()
 		{
-			target.SendMessage("OnActuator", new ActuatorArgs(gameObject, actType, state), SendMessageOptions.DontRequireReceiver);
+			if(targets != null)
+			{
+				foreach(Transform trans in targets)
+				{
+					trans.SendMessage("OnActuator", new ActuatorArgs(gameObject, actType, state), SendMessageOptions.DontRequireReceiver);
+				}
+			}
 		}
 	}
 
