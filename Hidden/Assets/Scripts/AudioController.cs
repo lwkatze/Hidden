@@ -53,6 +53,11 @@ public class AudioController : MonoBehaviour
         {
             GrappleLine();
         }
+
+        if(data.grappleLocked)
+        {
+            GrappleHit();
+        }
         if (data.interact > 0)
         {
             LockerSound();
