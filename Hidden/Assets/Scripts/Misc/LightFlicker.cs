@@ -8,6 +8,8 @@ public class LightFlicker : MonoBehaviour {
     public GameObject lightShaft;
     public GameObject lightBloom;
 
+    public AudioController AC;
+
     public float timeOn;
     public float timeOff;
 
@@ -15,6 +17,7 @@ public class LightFlicker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        AC = Camera.main.gameObject.GetComponent<AudioController>();
         lightObjectOn.SetActive(true);
         lightObjectOff.SetActive(false);
         lightBloom.SetActive(true);
@@ -51,6 +54,7 @@ public class LightFlicker : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);
         print("light on");
+        AC.LightFlicker();
         lightBloom.SetActive(true);
         lightShaft.SetActive(true);
         lightObjectOn.SetActive(true);

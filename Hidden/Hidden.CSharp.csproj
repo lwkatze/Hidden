@@ -69,6 +69,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AudioBridge.cs" />
+    <Compile Include="Assets\AudioController.cs" />
+    <Compile Include="Assets\Scripts\Actuators\DeathActuator.cs" />
+    <Compile Include="Assets\Scripts\Actuators\GenericActuator.cs" />
+    <Compile Include="Assets\Scripts\ButtonController.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Characters\InteractionHandler.cs" />
@@ -77,13 +82,14 @@
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\GrapplingHook.cs" />
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerHandler.cs" />
     <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerMove.cs" />
-    <Compile Include="Assets\Scripts\GlobalEventHandler.cs" />
-    <Compile Include="Assets\Scripts\LightFlicker.cs" />
+    <Compile Include="Assets\Scripts\GameWide\GameData.cs" />
+    <Compile Include="Assets\Scripts\GameWide\GlobalEventHandler.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LevelManager.cs" />
-    <Compile Include="Assets\Scripts\ObjectInteractionController.cs" />
-    <Compile Include="Assets\Scripts\Parallaxing.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\Scripts\Tilt.cs" />
+    <Compile Include="Assets\Scripts\Misc\LightFlicker.cs" />
+    <Compile Include="Assets\Scripts\Misc\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Misc\Tilt.cs" />
+    <Compile Include="Assets\Scripts\Utility\ObjectInteractionController.cs" />
+    <Compile Include="Assets\Scripts\Utility\Parallaxing.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

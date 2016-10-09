@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using App.Game.Player;
 
 public class AudioController : MonoBehaviour
 {
-
+    private CharacterData data { get { return CharacterData.charaData; } }
     private AudioSource sourceMusic;
     private AudioSource sourceAmbient;
     private AudioSource sourceFX;
@@ -17,7 +18,12 @@ public class AudioController : MonoBehaviour
 
     //FX
     public AudioClip locker;
-    public AudioClip lightFlicker;
+    public AudioClip grappleLine;
+    public AudioClip grappleHit;
+    public AudioClip lightFlicker1;
+    public AudioClip lightFlicker2;
+    public AudioClip lightFlicker3;
+
 
     //Voice
     public AudioClip prisonerLines1;
@@ -25,6 +31,7 @@ public class AudioController : MonoBehaviour
     public AudioClip prisonerLines3;
 
     bool inEnemyRange;
+    bool inLightRange;
 
     void Start()
     {
@@ -34,7 +41,7 @@ public class AudioController : MonoBehaviour
         sourceAmbient = audios[1]; //Volume & Pitch Control Dripping / Ambient
         sourceFX = audios[2]; //Volume Control FX
 
-        sourceFX.volume = 0.2f;
+        sourceFX.volume = 0.5f;
         sourceAmbient.volume = 1f;
         sourceMusic.volume = 0.05f;
         sourceMusic.pitch = 0.4f;
@@ -42,6 +49,15 @@ public class AudioController : MonoBehaviour
 
     void Update()
     {
+        if (data.grapple > 0)
+        {
+            GrappleLine();
+        }
+        if (data.interact > 0)
+        {
+            LockerSound();
+        }
+
         if (!sourceAmbient.isPlaying)
         {
             sourceAmbient.PlayOneShot(dripLoop);
@@ -56,7 +72,8 @@ public class AudioController : MonoBehaviour
             sourceMusic.volume = Mathf.Lerp(sourceMusic.volume, 0.6f, Time.deltaTime * 4f);
             sourceMusic.pitch = Mathf.Lerp(sourceMusic.pitch, 0.75f, Time.deltaTime * 2f);
 
-        } else
+        }
+        else
         {
             sourceAmbient.volume = Mathf.Lerp(sourceAmbient.volume, 1f, Time.deltaTime * 4f);
             sourceMusic.volume = Mathf.Lerp(sourceMusic.volume, 0.05f, Time.deltaTime * 4f);
@@ -88,9 +105,9 @@ public class AudioController : MonoBehaviour
                     break;
             }
         }
-        else if (obj.tag == "lol")
+        else if (obj.tag == "Light")
         {
-            //pass
+            inLightRange = true;
         }
         else if (obj.tag == "tt")
         {
@@ -104,21 +121,36 @@ public class AudioController : MonoBehaviour
         {
             inEnemyRange = false;
         }
+        else if (obj.tag == "Light")
+        {
+            inLightRange = false;
+        }
     }
 
     public void GrappleLine()
     {
-
+        if (!sourceFX.isPlaying)
+        {
+            sourceFX.PlayOneShot(grappleLine);
+        }
     }
 
     public void GrappleHit()
     {
-
+        if (!sourceFX.isPlaying)
+        {
+            sourceFX.PlayOneShot(grappleHit);
+        }
     }
 
     public void LockerSound()
     {
-
+        if (!sourceFX.isPlaying)
+        {
+            sourceFX.volume = 1f;
+            sourceFX.PlayOneShot(locker);
+            sourceFX.volume = 0.5f;
+        }
     }
 
     public void TaserShot()
@@ -126,5 +158,12 @@ public class AudioController : MonoBehaviour
 
     }
 
+    public void LightFlicker()
+    {
+        if (inLightRange)
+        {
+            sourceFX.PlayOneShot(lightFlicker3);
+        }
 
+    }
 }

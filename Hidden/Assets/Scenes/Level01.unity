@@ -1570,7 +1570,11 @@ MonoBehaviour:
   musicEnd: {fileID: 8300000, guid: 4dfb5fbfd8b4b4659af07a8cb7c56568, type: 3}
   dripLoop: {fileID: 8300000, guid: 9e12fc5bccca6c243a5909fecae088ad, type: 3}
   locker: {fileID: 8300000, guid: 4ee8209c5eefda943a2d5141d9bf0de4, type: 3}
-  lightFlicker: {fileID: 0}
+  grappleLine: {fileID: 8300000, guid: 804f8780a8b72db42a914ee83b6d6f00, type: 3}
+  grappleHit: {fileID: 8300000, guid: 3f79b202698b12643a6042d4fb11c802, type: 3}
+  lightFlicker1: {fileID: 0}
+  lightFlicker2: {fileID: 0}
+  lightFlicker3: {fileID: 8300000, guid: 7191f2564d95d0c499ae06cfe2310545, type: 3}
   prisonerLines1: {fileID: 8300000, guid: 804f8780a8b72db42a914ee83b6d6f00, type: 3}
   prisonerLines2: {fileID: 8300000, guid: 330a6cdfa496db241972b7c4392efc34, type: 3}
   prisonerLines3: {fileID: 8300000, guid: 3f79b202698b12643a6042d4fb11c802, type: 3}
@@ -4830,9 +4834,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 2123280833}
   - 114: {fileID: 2123280834}
+  - 61: {fileID: 2123280835}
   m_Layer: 0
   m_Name: Light
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4870,5 +4875,20 @@ MonoBehaviour:
   lightObjectOff: {fileID: 761931340}
   lightShaft: {fileID: 376987656}
   lightBloom: {fileID: 223620077}
+  AC: {fileID: 0}
   timeOn: 1.5
   timeOff: 1
+--- !u!61 &2123280835
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2123280832}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.5880556, y: -1.3806348}
+  serializedVersion: 2
+  m_Size: {x: 18.641462, y: 5.3975782}
