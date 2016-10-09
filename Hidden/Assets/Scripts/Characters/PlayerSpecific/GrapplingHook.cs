@@ -36,9 +36,10 @@ namespace App.Game.Player
 		protected override void OnCollisionEnter2D(Collision2D col)
 		{
 			if(col.gameObject.name == "Pipes" || col.gameObject.name == "Pipe" || col.gameObject.tag == "GrappleObject")
+			{
 				base.stop();
-
-			locked = true;
+				locked = true;
+			}
 		}
 
 		private Vector3[] setPositions(Vector3 v1, Vector3 v2)

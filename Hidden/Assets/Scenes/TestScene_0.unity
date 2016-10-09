@@ -384,11 +384,6 @@ Prefab:
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 377324357}
-    - target: {fileID: 114000014095095746, guid: 9786b8b13e8124c2397c18dfe3df2898,
-        type: 2}
-      propertyPath: jumpForce
-      value: 2400
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9786b8b13e8124c2397c18dfe3df2898, type: 2}
   m_IsPrefabParent: 0
