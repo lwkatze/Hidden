@@ -56,6 +56,8 @@ GameObject:
   - 114: {fileID: 114000014169411236}
   - 61: {fileID: 61000013293562146}
   - 50: {fileID: 50000011293197768}
+  - 61: {fileID: 61000011588001934}
+  - 114: {fileID: 114000011475530558}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Enemy
@@ -121,6 +123,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &61000011588001934
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014262194732}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!61 &61000013293562146
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -152,6 +168,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000011475530558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014262194732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0aff1ce88191475ab80cd4fed98c31c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actType: 0
+  targets:
+  - {fileID: 0}
+  names: []
+  tags:
+  - Player
+  initialState: 0
 --- !u!114 &114000011755350042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,7 +203,9 @@ MonoBehaviour:
   patrolDistance: 10
   startDist: 0.9
   timeToReact: 0.7
+  timeToGiveUp: 3
   escapeDistance: 30
+  confuseDistance: 3
   startRight: 0
   rayCastAll: 1
   rayMask:

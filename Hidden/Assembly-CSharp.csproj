@@ -45,10 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AudioBridge.cs" />
-     <Compile Include="Assets\AudioController.cs" />
      <Compile Include="Assets\Scripts\Actuators\DeathActuator.cs" />
      <Compile Include="Assets\Scripts\Actuators\GenericActuator.cs" />
+     <Compile Include="Assets\Scripts\AudioBridge.cs" />
+     <Compile Include="Assets\Scripts\AudioController.cs" />
      <Compile Include="Assets\Scripts\ButtonController.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemy\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemy\EnemyData.cs" />
@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Characters\PlayerSpecific\GrapplingHook.cs" />
      <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerHandler.cs" />
      <Compile Include="Assets\Scripts\Characters\PlayerSpecific\PlayerMove.cs" />
+     <Compile Include="Assets\Scripts\Fading.cs" />
      <Compile Include="Assets\Scripts\GameWide\GameData.cs" />
      <Compile Include="Assets\Scripts\GameWide\GlobalEventHandler.cs" />
      <Compile Include="Assets\Scripts\MainMenu\LevelManager.cs" />

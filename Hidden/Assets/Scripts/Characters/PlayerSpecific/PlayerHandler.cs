@@ -11,6 +11,8 @@ namespace App.Game.Player
 		//instance of InteractionHandler to receive events
 		public InteractionHandler handler;
 
+		public GameObject fader;
+
 		private CharacterData data { get { return CharacterData.charaData; } }
 		private GameObject hideObj;
 
@@ -19,6 +21,8 @@ namespace App.Game.Player
 			if(handler == null)
 				Debug.LogError("You need to inlcude a InteractionHandler reference!");
 
+			if(fader == null)
+				fader = GameObject.FindGameObjectWithTag("Fader");
 			subscribeEvents();
 		}
 
@@ -32,7 +36,9 @@ namespace App.Game.Player
 				data.rend.sortingOrder = 0;
 				data.rgbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 			}
-			
+
+			if(transform.position.y < data.fallDeathDist)
+				Death(deathType.Fall);
 		}
 
 		private void interact()
@@ -48,7 +54,7 @@ namespace App.Game.Player
 			{
 				data.canInteract = true;
 				hideObj = trig.gameObject;
-				data.gameObject.layer = LayerMask.NameToLayer("IgnoreRaycast");
+				data.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 			}
 
 			else if(trig.gameObject.tag == "Locker" && e.type == eventType.Exit)
@@ -56,6 +62,12 @@ namespace App.Game.Player
 				data.canInteract = false;
 				data.gameObject.layer = LayerMask.NameToLayer("Player");
 			}
+
+			if(trig.gameObject.tag == "Enemy") 
+				Death(deathType.Enemy);
+
+			if(trig.gameObject.tag == "Death")
+				Death(deathType.Fall);
 		}
 			
 		private void subscribeEvents()
@@ -71,12 +83,25 @@ namespace App.Game.Player
 			}
 		}
 
-		private void OnDeath(ActuatorArgs args)
+		private void Death(deathType type)
 		{
-			//go to last spawn
+			Debug.Log("Death");
+
+			Color color = new Color();
+
+			if(type == deathType.Enemy)
+				color = Color.white;
+
+			else if(type == deathType.Fall)
+				color = Color.black;
+
+			fader.SendMessage("OnFlashScreen", color, SendMessageOptions.RequireReceiver);
+
 			transform.position = data.spawnPoints[data.spawnPoints.Count - 1];
 		}
 
 
 	}
+
+	public enum deathType {Enemy, Fall} 
 }

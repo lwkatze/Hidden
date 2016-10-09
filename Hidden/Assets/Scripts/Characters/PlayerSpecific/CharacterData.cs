@@ -73,6 +73,7 @@ namespace App.Game.Player
 		public Camera playerCam;
 		public float jumpForce = 7200f;
 		public float termVelocity = -60f;
+		public float fallDeathDist = -100f; //distance in world coordinates need to fall for death
 		public float crawlSpeed = 10f;
 		public float moveSpeed = 20f;
 		public float moveSpeedPerSecond = 30f;
@@ -180,6 +181,9 @@ namespace App.Game.Player
 		{
 			if(rend == null)
 				rend = GetComponentInChildren<SpriteRenderer>();
+
+			if(spawnPoints[0] == null)
+				spawnPoints.Add(transform.position);
 		}
 
 		void Update()

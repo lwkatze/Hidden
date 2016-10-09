@@ -10,6 +10,8 @@ TagManager:
   - GrappleObject
   - Locker
   - SceneObject
+  - Prisoner
+  - Fader
   layers:
   - Default
   - TransparentFX

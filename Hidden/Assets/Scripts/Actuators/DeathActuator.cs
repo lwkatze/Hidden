@@ -40,7 +40,7 @@ namespace App.Game.Utility
 			{
 				foreach(Transform target in targets)
 				{
-					target.SendMessage("OnDeath", new ActuatorArgs(gameObject, actType, state), SendMessageOptions.DontRequireReceiver);
+					target.SendMessage("OnDeath", new ActuatorArgs(gameObject, actType, state), SendMessageOptions.RequireReceiver);
 				}
 			}
 		}
