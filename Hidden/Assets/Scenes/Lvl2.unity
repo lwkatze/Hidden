@@ -2681,12 +2681,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgrounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1265320573}
+  - {fileID: 1714225323}
+  - {fileID: 918420997}
+  - {fileID: 1732617865}
   foregrounds:
-  - {fileID: 0}
+  - {fileID: 1034413372}
   smoothing: 1
 --- !u!124 &1668810763
 Behaviour:
