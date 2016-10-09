@@ -1,15 +1,13 @@
 fileFormatVersion: 2
-guid: 59143be09382df84fbab229fad2c1074
-timeCreated: 1475901609
+guid: a734f486c3c2ea9469de016b0976d19f
+timeCreated: 1475979643
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: BG_locker_fore
-    21300002: BG_locker_back
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -40,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -53,33 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: BG_locker_fore
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 9
-        width: 12
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: BG_locker_back
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 9
-        width: 12
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
