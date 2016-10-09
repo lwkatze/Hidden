@@ -225,6 +225,8 @@ namespace App.Game.Player
 				}
 			}
 				
+			data.grappleLocked = (proj.projectile != null)? proj.projectile.locked : false;
+
 			prevGrapple = data.grapple;
 		}
 

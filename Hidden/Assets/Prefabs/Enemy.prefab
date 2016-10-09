@@ -120,7 +120,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61000013293562146
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -165,10 +165,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayEndPoint: {fileID: 4000011677692314}
   speed: 2
-  runSpeed: 11
+  runSpeed: 10.5
   patrolDistance: 10
   startDist: 0.9
-  timeToReact: 0.5
+  timeToReact: 0.7
   escapeDistance: 30
   startRight: 0
   rayCastAll: 1

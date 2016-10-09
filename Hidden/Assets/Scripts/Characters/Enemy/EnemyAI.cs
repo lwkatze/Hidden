@@ -31,8 +31,9 @@ namespace App.Game.Enemy
 		public float patrolDistance;	//distance of each patrol cycle
 		public float startDist;	//the start distance of the enemy as a percent between 
 		public float timeToReact;	//time between when the guard sees player and reacts to player
+		public float timeToGiveUp = 3f;
 		public float escapeDistance;
-
+		public float confuseDistance = 3f;
 		public bool startRight = true;
 		public bool rayCastAll = true;
 		public LayerMask rayMask;
@@ -40,6 +41,7 @@ namespace App.Game.Enemy
 		private bool detectPlayer;
 		private bool prevDetectPlayer;
 		private bool pursue = false;
+		private bool lockPursue = false;
 
 		private Vector3 initPos; //the initial position on run
 		private Transform player { get { return CharacterData.charaData.transform; } }//reference to the player
@@ -105,16 +107,36 @@ namespace App.Game.Enemy
 			StartCoroutine(timePersuit(timeToReact));
 		}
 
+		void stopPersuit()
+		{
+
+		}
+
 		void pursuit()
 		{
-			int direction = (player.transform.position.x > transform.position.x)? 1 : -1;
+			int direction = 1;
 
-			transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
+			if(Mathf.Abs(player.transform.position.x - transform.position.x) > confuseDistance)
+				direction = (player.transform.position.x > transform.position.x)? 1 : -1;
+
+			else
+			{
+				int temp = Random.Range(-1, 1);
+
+				if(temp == 0)
+					temp = 1;
+				
+				direction = temp/Mathf.Abs(temp);
+				lockPursue = true;
+				StartCoroutine(lockPursuit(timeToReact, direction));
+			}
+
+			if(!lockPursue)
+				transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
 
 			if(Mathf.Abs(player.transform.position.x - transform.position.x) > escapeDistance)
 			{
-				detectPlayer = false;
-				pursue = false;
+				StartCoroutine(timeGiveUp(timeToGiveUp));
 			}
 		}
 
@@ -123,6 +145,23 @@ namespace App.Game.Enemy
 			yield return new WaitForSeconds(seconds);
 
 			pursue = true;
+		}
+
+		IEnumerator timeGiveUp(float seconds)
+		{
+			yield return new WaitForSeconds(seconds);
+
+			detectPlayer = false;
+			pursue = false;
+		}
+
+		IEnumerator lockPursuit(float seconds, int direction)
+		{
+			transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
+
+			yield return new WaitForSeconds(seconds);
+
+			lockPursue = false;
 		}
 
 		#endregion
