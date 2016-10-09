@@ -8,11 +8,15 @@ public class LightFlicker : MonoBehaviour {
     public GameObject lightShaft;
     public GameObject lightBloom;
 
+    public float timeOn;
+    public float timeOff;
+
     private bool lightOn;
 
 	// Use this for initialization
 	void Start () {
-        //lightObjectOn.SetActive(true);
+        lightObjectOn.SetActive(true);
+        lightObjectOff.SetActive(false);
         lightBloom.SetActive(true);
         lightShaft.SetActive(true);
         lightOn = true;
@@ -23,10 +27,10 @@ public class LightFlicker : MonoBehaviour {
 
         if (lightOn)
         {
-            StartCoroutine(waitTimerOne(1.5f));
+            StartCoroutine(waitTimerOne(timeOn));
         } else
         {
-            StartCoroutine(waitTimerTwo(1.5f));
+            StartCoroutine(waitTimerTwo(timeOff));
         }
 
     }
@@ -37,6 +41,8 @@ public class LightFlicker : MonoBehaviour {
         print("light off");
         lightBloom.SetActive(false);
         lightShaft.SetActive(false);
+        lightObjectOn.SetActive(false);
+        lightObjectOff.SetActive(true);
         lightOn = false;
         yield return null;
     }
@@ -47,6 +53,8 @@ public class LightFlicker : MonoBehaviour {
         print("light on");
         lightBloom.SetActive(true);
         lightShaft.SetActive(true);
+        lightObjectOn.SetActive(true);
+        lightObjectOff.SetActive(false);
         lightOn = true;
         yield return null;
     }
