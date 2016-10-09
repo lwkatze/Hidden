@@ -29,4 +29,10 @@ public class PlayerHandler : MonoBehaviour
 		//handler.colFired += new colResponder(colResponse);
 		handler.trigFired += new trigResponder(trigResponse);
 	}
+
+	private void OnActuator(ActuatorArgs args)
+	{
+		if(args.sender.tag == "Respawn")
+			Debug.Log("Respawn");
+	}
 }
