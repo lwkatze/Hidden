@@ -24,6 +24,8 @@ namespace App.Game.Player
 		{
 			if(move == true)
 				translatePosition();
+
+			data.grappleLocked = locked;
 		}
 			
 		public override void translatePosition ()

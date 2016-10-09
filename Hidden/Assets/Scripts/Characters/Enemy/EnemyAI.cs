@@ -118,6 +118,10 @@ namespace App.Game.Enemy
 
 			direction = (player.transform.position.x > transform.position.x)? 1 : -1;
 
+			//flip
+			if(transform.localScale.x/Mathf.Abs(transform.localScale.x) == direction/Mathf.Abs(direction))
+				transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+
 			transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
 
 			if(Mathf.Abs(player.transform.position.x - transform.position.x) > escapeDistance)
@@ -132,7 +136,7 @@ namespace App.Game.Enemy
 		{
 			yield return new WaitForSeconds(seconds);
 
-			pursue = true;
+			pursue = true;	
 		}
 
 		IEnumerator timeGiveUp(float seconds)
