@@ -11,9 +11,6 @@ public class PlayerHandler : MonoBehaviour
 
 	void Start () 
 	{
-		if(!handler)
-			Debug.LogError("Please give an instance of InteractionHandler");
-
 		subscribeEvents();
 	}
 
