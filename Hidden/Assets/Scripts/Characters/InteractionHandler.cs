@@ -36,11 +36,6 @@ namespace App.Game.Utility
 			Dispatch(this, col, new InteractionEventArgs(eventType.Enter));
 		}
 
-		void OnCollisionStay2D(Collision2D col)
-		{
-			Dispatch(this, col, new InteractionEventArgs(eventType.Stay));
-		}
-
 		void OnCollisionExit2D(Collision2D col)
 		{
 			Dispatch(this, col, new InteractionEventArgs(eventType.Exit));
@@ -49,11 +44,6 @@ namespace App.Game.Utility
 		void OnTriggerEnter2D(Collider2D trig)
 		{
 			Dispatch(this, trig, new InteractionEventArgs(eventType.Enter));
-		}
-
-		void OnTriggerStay2D(Collider2D trig)
-		{
-			Dispatch(this, trig, new InteractionEventArgs(eventType.Stay)); 
 		}
 
 		void OnTriggerExit2D(Collider2D trig)
@@ -185,7 +175,6 @@ namespace App.Game.Utility
 	public enum eventType
 	{
 		Enter, 
-		Stay, 
 		Exit,
 		Nothing
 	}

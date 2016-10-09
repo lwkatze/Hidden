@@ -4,8 +4,8 @@ using UnityEngine;
 using System.Collections;
 using App.Game.Utility;
 
-public class PlayerHandler : MonoBehaviour {
-
+public class PlayerHandler : MonoBehaviour 
+{
 	//instance of InteractionHandler to receive events
 	public InteractionHandler handler;
 

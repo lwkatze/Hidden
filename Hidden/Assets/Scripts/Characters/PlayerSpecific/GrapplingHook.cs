@@ -41,7 +41,7 @@ namespace App.Game.Player
 		{
 			line.SetPositions(setPositions(initPos, transform.position));
 			base.translatePosition ();
-			Debug.Log("Angle: " + angle);
+			Debug.Log("Angle: " + transform.eulerAngles);
 		}
 
 		void OnCollisionEnter2D(Collision2D col)
@@ -59,6 +59,7 @@ namespace App.Game.Player
 		{
 			Debug.Log("STOP");
 			base.stop();
+			locked = true;
 		}
 
 		void doLine()

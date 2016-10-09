@@ -13,7 +13,10 @@ namespace App.Game.Object
 		public Vector2 destination;
 		public float angleAddition;
 		public float speedPerSecond;
-	
+
+		public float distance { get { return CreateProjectile.distance(transform.position, initPos); } }
+		public bool locked = false;
+
 		protected Vector2 initPos;
 
 		[HideInInspector]public float angle;
@@ -65,12 +68,12 @@ namespace App.Game.Object
 
 		public virtual void setEulerAngles(Vector3 theAngle)
 		{
-			transform.eulerAngles = theAngle;
+			sprite.transform.eulerAngles = theAngle;
 		}
 
 		public virtual void translatePosition()
 		{
-			transform.Translate(new Vector2(Time.deltaTime * speedPerSecond * Mathf.Cos(angle), Time.deltaTime * speedPerSecond * Mathf.Sin(angle)));
+			transform.Translate(new Vector2(Time.deltaTime * speedPerSecond * Mathf.Sin(angle), Time.deltaTime * speedPerSecond * Mathf.Cos(angle)));
 		}
 
 		public void ProjSetToLocalVar(CreateProjectile inst)
@@ -112,7 +115,7 @@ namespace App.Game.Object
 			projectile.ProjSetToLocalVar(this);
 			projectile.go();
 		}
-
+			
 		/// <summary>
 		/// Delete this projectile
 		/// </summary>
@@ -142,6 +145,11 @@ namespace App.Game.Object
 		private Vector2 distVector(Vector2 v1, Vector2 v2)
 		{
 			return new Vector2(v2.x - v1.x, v2.y - v2.y);
+		}
+
+		public static float distance(Vector2 v1, Vector2 v2)
+		{
+			return Mathf.Sqrt(Mathf.Pow(v2.x-v1.x, 2f) + Mathf.Pow(v2.y-v1.y, 2f));
 		}
 	}
 

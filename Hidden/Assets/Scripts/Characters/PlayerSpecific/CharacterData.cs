@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace App.Game.Player
 {
-	public delegate void animValueChanged (animValues value);
+	public delegate void animValueChanged (inputValues value);
 
 	public class CharacterData : MonoBehaviour 
 	{
@@ -63,7 +63,7 @@ namespace App.Game.Player
 		/// <summary>
 		/// Radius of the collider checking if player is hitting ground
 		/// </summary>
-		public float gndRadius = 0.2f;
+		public float gndRadius = 0.1f;
 
 		[HideInInspector] public Vector3 vOnLand;
 		public Rigidbody2D rgbody;
@@ -71,41 +71,93 @@ namespace App.Game.Player
 		public Camera playerCam;
 		public float jumpForce = 7200f;
 		public float termVelocity = -60f;
+		public float crawlSpeed = 10f;
 		public float moveSpeed = 20f;
 		public float moveSpeedPerSecond = 30f;
 		public bool moveWithVelocity = false;
 
-		[HideInInspector]public int walking 
+		[HideInInspector] public float h_axis;
+
+		public int interact 
+		{ 
+			get { return inputHierarchy[inputValues.interact]; } 
+			set { inputHierarchy[inputValues.interact] = value; } 
+		}
+
+		public int crawl
+		{ 
+			get { return inputHierarchy[inputValues.crawl]; } 
+			set 
+			{ 
+				inputHierarchy[inputValues.crawl] = value; 
+				anim.SetBool("Crawl", (value > 0)? true : false);
+			} 
+		}
+
+		public int crouch
+		{ 
+			get { return inputHierarchy[inputValues.crouch]; } 
+			set 
+			{ 
+				inputHierarchy[inputValues.crouch] = value; 
+				anim.SetBool("Crouch", (value > 0)? true : false);
+			} 
+		}
+
+		public int grapple
+		{ 
+			get { return inputHierarchy[inputValues.grapple]; } 
+			set 
+			{ 
+				inputHierarchy[inputValues.grapple] = value; 
+				anim.SetBool("Grapple", (value > 0)? true : false);
+			} 
+		}
+
+		public int jump
+		{ 
+			get { return inputHierarchy[inputValues.jump]; } 
+			set 
+			{ 
+				inputHierarchy[inputValues.jump] = value; 
+			} 
+		}
+
+		public int walk
+		{ 
+			get { return inputHierarchy[inputValues.walk]; } 
+			set 
+			{ 
+				inputHierarchy[inputValues.walk] = value; 
+				anim.SetInteger("Walking", value);
+			} 
+		}
+
+		[HideInInspector]private int animWalking 
 		{ 
 			get { return anim.GetInteger("Walking"); } 
 			set { anim.SetInteger("Walking", value); } 
 		}
-
-		[HideInInspector]public bool grapple 
+		[HideInInspector]private bool animGrapple 
 		{ 
 			get { return anim.GetBool("Grapple"); } 
-			set { anim.SetBool("Grapple", value); if(value == true) DispatchAnimChanged(animValues.grapple); else DispatchAnimChanged(animValues.idle); } 
+			set { anim.SetBool("Grapple", value); } 
 		}
-		[HideInInspector]public bool crouch 
+		[HideInInspector]public bool animCrouch 
 		{ 
 			get { return anim.GetBool("Crouch"); } 
-			set { anim.SetBool("Crouch", value); if(value == true) DispatchAnimChanged(animValues.crouch); else DispatchAnimChanged(animValues.idle); } 
+			set { anim.SetBool("Crouch", value); } 
 		}
-		[HideInInspector]public bool crawl 
+		[HideInInspector]public bool animCrawl 
 		{ 
 			get { return anim.GetBool("Crawl"); } 
-			set { anim.SetBool("Crawl", value); if(value == true) DispatchAnimChanged(animValues.crawl); DispatchAnimChanged(animValues.idle); } 
+			set { anim.SetBool("Crawl", value); } 
 		}
-		[HideInInspector]public bool interact;
 
 		#endregion
 
-		private void setValues()
-		{
-			
-		}
-
 		#region Unity_Methods
+
 		void Awake()
 		{
 			if(charaData == null)
@@ -118,44 +170,110 @@ namespace App.Game.Player
 			}
 		}
 
-		void Start()
-		{
-			setValues();
-		}
-
 		void Update()
 		{
+			Debug.Log("gndbool: " + gndBool);
 			prev_distFromGnd = distFromGnd;
-			//Debug.Log("YVelocity: " + rgbody.velocity.y);
-		}
-
-		void OnCollisionEnter()
-		{
-			collideState = true;
-		}
-
-		void OnCollisionExit()
-		{
-			collideState = false;
+			KeyboardUpdate();
 		}
 
 		#endregion
 
-		void DispatchAnimChanged(animValues value)
+		private Dictionary<inputValues, int> inputHierarchy = new Dictionary<inputValues, int>()
 		{
-			if(animChanged != null)
+			{inputValues.interact, 0},
+			{inputValues.crawl, 0},
+			{inputValues.crouch, 0},
+			{inputValues.grapple, 0},
+			{inputValues.jump, 0},
+			{inputValues.walk, 0},
+			{inputValues.idle, 0}
+		};
+
+		public int getInputValue(inputValues value)
+		{
+			int theReturn = 0;
+
+			List<inputValues> keys = new List<inputValues>(inputHierarchy.Keys);
+
+			for(int i = 0; i < keys.Count; i++)
 			{
-				animChanged(value);
+				//either crawl or interact takes priority if they are true
+				if(inputHierarchy[inputValues.crawl] == 1 || inputHierarchy[inputValues.interact] == 1)
+				{
+					theReturn = (value == inputValues.crawl || value == inputValues.interact)? 1 : 0;
+					break;
+				}
+
+				//break if a item with higher priority is true
+				if(inputHierarchy[keys[i]] == 1 && inputHierarchy[keys[i]] != inputHierarchy[value])
+					break;
+
+				//break when element is found
+				if(keys[i] == value)
+				{
+					theReturn = inputHierarchy[value];
+					break;
+				}
+			}
+
+			return theReturn;
+		}
+
+		void KeyboardUpdate()
+		{
+			Debug.Log("Grapple: " + getInputValue(inputValues.grapple));
+			Debug.Log("Walk: " + getInputValue(inputValues.walk));
+			Debug.Log("Crouch: " + getInputValue(inputValues.crouch));
+			Debug.Log("Jump: " + getInputValue(inputValues.jump));
+
+			h_axis = Input.GetAxis("Horizontal");
+
+			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
+
+			if(Input.GetButtonDown("Jump"))
+			{
+				jump = 1;
+			}
+			if(!Input.GetButtonDown("Jump"))
+			{
+				jump = 0;
+			}
+			if(Input.GetButtonDown("Grapple"))
+			{
+				grapple = 1;
+			}
+			if(Input.GetButtonUp("Grapple"))
+			{
+				grapple = 0;
+			}
+			if(Input.GetButtonDown("Crouch"))
+			{
+				crouch = 1;
+			}
+			if(Input.GetButtonUp("Crouch"))
+			{
+				crouch = 0;
+			}
+			if(Input.GetButtonUp("Horizontal"))
+			{
+				h_axis = 0;
+			}
+			if(Input.GetButtonDown("Interact"))
+			{
+				interact = (interact > 0)? 1 : 0;
 			}
 		}
 	}
 
-	public enum animValues
+	public enum inputValues
 	{
-		idle,
-		walk, 
-		grapple, 
+		interact,
+		crawl,
+		grapple,
+		jump,
 		crouch,
-		crawl
+		walk, 
+		idle,
 	}
 }

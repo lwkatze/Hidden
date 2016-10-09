@@ -9,35 +9,23 @@ namespace App.Game.Player
 
 		public Vector2 crouchResize;
 		public Vector2 crawlResize;
+		private Vector2 normalSize = new Vector2(1f, 1f);
 
-		private Vector2 normalSize;
-
-		void Start()
+		public void resizeCollider(inputValues value)
 		{
-			normalSize = transform.localScale;
-			data.animChanged += new animValueChanged(resizeCollider);
-		}
-
-		void resizeCollider(animValues value)
-		{
-			if(value == animValues.idle)
-			{
-				transform.localScale = normalSize;
-			}
-
-			if(value == animValues.walk)
-			{
-				transform.localScale = normalSize;
-			}
-
-			if(value == animValues.crouch)
+			if(value == inputValues.crouch)
 			{
 				transform.localScale = crouchResize;
 			}
 
-			if(value == animValues.crawl)
+			else if(value == inputValues.crawl)
 			{
 				transform.localScale = crawlResize;
+			}
+
+			else
+			{
+				transform.localScale = normalSize;
 			}
 		}
 	}

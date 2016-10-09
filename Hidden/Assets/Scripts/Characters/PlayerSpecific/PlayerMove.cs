@@ -18,6 +18,11 @@ namespace App.Game.Player
 		public static PlayerMove playerMove;
 
 		/// <summary>
+		/// The collider resizer
+		/// </summary>
+		public ColliderResize resizer;
+
+		/// <summary>
 		/// The grappling hook
 		/// </summary>
 		public GameObject grapHook;
@@ -29,6 +34,9 @@ namespace App.Game.Player
 
 		public Vector2 grappleDirection = Vector2.up;
 
+		public float maxGrappleDistance = 50f;
+		public float distToLockCrawl = 0.5f;
+
 		/// <summary>
 		/// Access to the Characterdata singleton
 		/// </summary>
@@ -38,32 +46,11 @@ namespace App.Game.Player
 			get { return CharacterData.charaData; }
 		}
 
-		private bool overrrideNormalMove
-		{
-			get
-			{
-				return overrideNM;
-			}
-			set
-			{
-				if(data.grapple)
-					overrideNM = false;
-
-				else 
-					overrideNM = true;
-			}
-		}
-
-		private bool overrideNM;
-
-
 	#region Data
 
 		private Vector2 moveVector;
 		private bool facingRight;
 		private float currentSpeed;
-		private float h_axis;
-		private float v_axis;
 
 		private CreateProjectile proj;
 
@@ -115,146 +102,140 @@ namespace App.Game.Player
 		{
 			if(grapHook == null)
 				Debug.LogError("You need to include a reference to the GrappleHook object!");
+
+			if(resizer == null)
+				Debug.LogError("You need to include a reference to the ColliderResize script!");
 		}
 
 		void Update()
 		{
-			Animations();
+			
 		}
 
 		void LateUpdate()
 		{
-			if(!SpecMoveUpdate())
-				NormalMoveUpdate();
+			Move();
 
 			Debug.Log("gndbool: " + data.gndBool);
 		}
 
 	#endregion
 
-		//normal movement: walk and jump
-		void NormalMoveUpdate ()
+		private void Move()
 		{
-			if(h_axis > 0 && facingRight)
+			if(data.getInputValue(inputValues.walk) != 0 || IntToBool(data.getInputValue(inputValues.jump)))
+				NormalMove();
+
+			else
+			{
+				crawl();
+				crouch();
+				grapple();
+			}	
+
+			if(data.getInputValue(inputValues.crawl) == 0 && data.getInputValue(inputValues.crouch) == 0)
+				resizer.resizeCollider(inputValues.idle);
+		}
+
+		//normal movement: walk and jump
+		void NormalMove ()
+		{
+			Debug.Log("Normal Move");
+
+			if(data.h_axis > 0 && facingRight)
 				Flip();
-			if(h_axis < 0 && !facingRight)
+			if(data.h_axis < 0 && !facingRight)
 				Flip();
 
-			moveVector = new Vector2(h_axis * data.moveSpeedPerSecond, 0);
+			moveVector = new Vector2(data.h_axis * data.moveSpeedPerSecond, 0);
 			data.transform.Translate(moveVector * Time.deltaTime);
 
-			if(h_axis == 0)
+			if(IntToBool(data.getInputValue(inputValues.jump)) && data.gndBool)
 			{
-				stopNormalMovement();
+					data.rgbody.AddForce(new Vector2(0, data.jumpForce));
 			}
 		}
 
-		//special move: grappling hook, crawl, etc.
-		bool SpecMoveUpdate()
+		/// <summary>
+		/// Returns 1 if grappling instance is not null
+		/// </summary>
+		void grapple()
 		{
-			bool condition = false;
 			//do grapple
-			if(data.grapple && !prevGrapple)
+			if(IntToBool(data.getInputValue(inputValues.grapple)) && !prevGrapple)
 			{
-				proj = new CreateProjectile(grapHook, grapStart.position, grappleDirection, data.moveSpeedPerSecond, 90f);
+				proj = new CreateProjectile(grapHook, grapStart.position, ((Vector2)grapStart.position)+(grappleDirection), data.moveSpeedPerSecond, 90f);
 			} 
-			else if(!data.grapple && prevGrapple)
+
+			//destroy grapple if let up
+			else if(!IntToBool(data.getInputValue(inputValues.grapple)) || proj.projectile.distance > maxGrappleDistance)
 			{
 				if(proj != null)
 					proj.deleteProjectile();
 			}
-				
-			prevGrapple = data.grapple;
 
-			return condition;
+			if(proj != null && proj.projectile != null)
+			{
+				//if the projectile is locked in position
+				if(proj.projectile.locked)
+				{
+					Debug.Log("Attempting to transform");
+					transform.Translate(grappleDirection * data.moveSpeedPerSecond * Time.deltaTime);
+
+					if(CreateProjectile.distance((Vector2)transform.position, (Vector2)proj.projectile.transform.position) < distToLockCrawl)
+					{
+						data.crawl = 1;
+						proj.deleteProjectile();
+					}
+				}
+			}
+
+			Debug.Log(IntToBool(data.getInputValue(inputValues.grapple)));
+			prevGrapple = IntToBool(data.getInputValue(inputValues.grapple));
 		}
 
-		/// <summary>
-		/// Will use this to update animations based on user movement inputs
-		/// </summary>
-		void Animations()
+		int crawl()
 		{
-			KeyboardUpdate();
-			if(!overrrideNormalMove)
-			{
-				if(h_axis > 0)
-					data.walking = 1;
-				
-				else if(h_axis < 0)
-					data.walking = -1;
+			int theReturn = 0;
 
-				else 
-					data.walking = 0;
+			if(IntToBool(data.getInputValue(inputValues.crawl)))
+			{
+				theReturn = 0;
+
+				data.rgbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+
+				resizer.resizeCollider(inputValues.crawl);
+
+				moveVector = new Vector2(data.h_axis * data.crawlSpeed, 0);
+				data.transform.Translate(data.h_axis * data.crawlSpeed * Time.deltaTime, 0f, 0f, Space.World);
+
+				if(Input.GetButton("Crouch"))
+					theReturn = 0;
 			}
+
+			return theReturn;
+		}
+			
+		int crouch()
+		{
+			int theReturn = data.crouch;
+
+			resizer.resizeCollider(inputValues.crouch);
+
+			return theReturn;
 		}
 
 	#region Input
-
-		void KeyboardUpdate()
-		{
-			h_axis = Input.GetAxis("Horizontal");
-			if(Input.GetButtonDown("Jump"))
-			{
-				this.SendMessage("Jump");
-			}
-			if(Input.GetButtonUp("Horizontal"))
-			{
-				h_axis = 0;
-			}
-			if(Input.GetButton("Grapple"))
-			{
-				data.grapple = true;
-			}
-			if(Input.GetButtonUp("Vertical"))
-			{
-				data.grapple = false;
-			}
-			if(Input.GetButton("Crouch"))
-			{
-				data.crouch = true;
-			}
-			if(Input.GetButtonUp("Crouch"))
-			{
-				data.crouch = false;
-			}
-			if(Input.GetButton("Interact"))
-			{
-				data.interact = !data.interact;
-			}
-		}
 
 		void OnMouseDown()
 		{
 			Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		}
-
-		void Crouch()
-		{
-			stopNormalMovement();
-		}
-
+			
 		void Move(float value)
 		{
 			Debug.Log("Move Called");
-			h_axis = value;
-		}
-		void StopMove(float value)
-		{
-			h_axis = value;
-		}
-
-		void Jump ()
-		{/*
-			Debug.Log("Jumping");
-			if(data.gndBool == true)
-			{
-				data.rgbody.AddForce(new Vector2(0, jumpForce));
-			}
-			else
-			{
-				data.rgbody.velocity = new Vector2(data.rgbody.velocity.x, 0);
-				data.rgbody.AddForce(new Vector2(0, data.jumpForce));
-			}*/
+			data.h_axis = value;
 		}
 
 	#endregion
@@ -269,12 +250,15 @@ namespace App.Game.Player
 			//data.player.transform.localScale = theScale;
 		}
 
-		public void stopNormalMovement()
+		/// <summary>
+		/// Greate than 0 is true, 0 or less is false.
+		/// </summary>
+		/// <returns><c>true</c>, if to bool was inted, <c>false</c> otherwise.</returns>
+		/// <param name="i">The index.</param>
+		private bool IntToBool(int i)
 		{
-			currentSpeed = h_axis = v_axis = 0;
-			data.rgbody.velocity = new Vector2(0,0);
+			return (i > 0)? true : false;
 		}
-
 	#endregion
 	}
 }
