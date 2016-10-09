@@ -11,9 +11,6 @@ public class PlayerHandler : MonoBehaviour
 
 	void Start () 
 	{
-		if(!handler)
-			Debug.LogError("Please give an instance of InteractionHandler");
-
 		subscribeEvents();
 	}
 
@@ -31,5 +28,11 @@ public class PlayerHandler : MonoBehaviour
 	{
 		//handler.colFired += new colResponder(colResponse);
 		handler.trigFired += new trigResponder(trigResponse);
+	}
+
+	private void OnActuator(ActuatorArgs args)
+	{
+		if(args.sender.tag == "Respawn")
+			Debug.Log("Respawn");
 	}
 }
