@@ -32,6 +32,7 @@ namespace App.Game.Utility
 
 		void OnCollisionEnter2D(Collision2D col)
 		{
+			Debug.Log("Collision detected");
 			Dispatch(this, col, new InteractionEventArgs(eventType.Enter));
 		}
 
