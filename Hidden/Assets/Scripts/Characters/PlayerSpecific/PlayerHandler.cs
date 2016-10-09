@@ -8,12 +8,12 @@ namespace App.Game.Player
 {
 	public class PlayerHandler : MonoBehaviour 
 	{
+		private CharacterData data { get { return CharacterData.charaData; } }
+		private LevelChanger lvlChange { get { return LevelChanger.lvlChanger; } }
+
 		//instance of InteractionHandler to receive events
 		public InteractionHandler handler;
 
-		public GameObject fader;
-
-		private CharacterData data { get { return CharacterData.charaData; } }
 		private GameObject hideObj;
 
 		void Start () 
@@ -21,8 +21,6 @@ namespace App.Game.Player
 			if(handler == null)
 				Debug.LogError("You need to inlcude a InteractionHandler reference!");
 
-			if(fader == null)
-				fader = GameObject.FindGameObjectWithTag("Fader");
 			subscribeEvents();
 		}
 
@@ -87,17 +85,7 @@ namespace App.Game.Player
 		{
 			Debug.Log("Death");
 
-			Color color = new Color();
-
-			if(type == deathType.Enemy)
-				color = Color.white;
-
-			else if(type == deathType.Fall)
-				color = Color.black;
-
-			fader.SendMessage("OnFlashScreen", color, SendMessageOptions.RequireReceiver);
-
-			transform.position = data.spawnPoints[data.spawnPoints.Count - 1];
+			lvlChange.SendMessage("SceneLoad", sceneLoadType.reload, SendMessageOptions.RequireReceiver);
 		}
 
 

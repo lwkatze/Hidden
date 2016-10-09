@@ -182,7 +182,7 @@ namespace App.Game.Player
 			if(rend == null)
 				rend = GetComponentInChildren<SpriteRenderer>();
 
-			if(spawnPoints[0] == null)
+			if(spawnPoints.Count == 0)
 				spawnPoints.Add(transform.position);
 		}
 
