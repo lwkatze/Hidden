@@ -6,6 +6,7 @@
 using UnityEngine;
 using System.Collections;
 using App.Game.Utility;
+using App.Game.Object;
 
 namespace App.Game.Player
 {
@@ -15,6 +16,18 @@ namespace App.Game.Player
 		/// Static reference to playerMove singleton
 		/// </summary>
 		public static PlayerMove playerMove;
+
+		/// <summary>
+		/// The grappling hook
+		/// </summary>
+		public GameObject grapHook;
+
+		/// <summary>
+		/// The starting position of the grappling hook
+		/// </summary>
+		public Transform grapStart;
+
+		public Vector2 grappleDirection = Vector2.up;
 
 		/// <summary>
 		/// Access to the Characterdata singleton
@@ -51,6 +64,10 @@ namespace App.Game.Player
 		private float currentSpeed;
 		private float h_axis;
 		private float v_axis;
+
+		private CreateProjectile proj;
+
+		private bool prevGrapple;
 
 		private bool isDesktop
 		{
@@ -96,7 +113,8 @@ namespace App.Game.Player
 
 		void Start()
 		{
-			
+			if(grapHook == null)
+				Debug.LogError("You need to include a reference to the GrappleHook object!");
 		}
 
 		void Update()
@@ -106,32 +124,49 @@ namespace App.Game.Player
 
 		void LateUpdate()
 		{
-			MoveUpdate();
+			if(!SpecMoveUpdate())
+				NormalMoveUpdate();
 
 			Debug.Log("gndbool: " + data.gndBool);
 		}
 
 	#endregion
 
-		void MoveUpdate ()
+		//normal movement: walk and jump
+		void NormalMoveUpdate ()
 		{
 			if(h_axis > 0 && facingRight)
 				Flip();
 			if(h_axis < 0 && !facingRight)
 				Flip();
 
-
-			Debug.Log("Moving with position: " + moveVector);
 			moveVector = new Vector2(h_axis * data.moveSpeedPerSecond, 0);
 			data.transform.Translate(moveVector * Time.deltaTime);
-
 
 			if(h_axis == 0)
 			{
 				stopNormalMovement();
 			}
+		}
 
-			Debug.Log("h_axis: " + h_axis);
+		//special move: grappling hook, crawl, etc.
+		bool SpecMoveUpdate()
+		{
+			bool condition = false;
+			//do grapple
+			if(data.grapple && !prevGrapple)
+			{
+				proj = new CreateProjectile(grapHook, grapStart.position, grappleDirection, data.moveSpeedPerSecond, 90f);
+			} 
+			else if(!data.grapple && prevGrapple)
+			{
+				if(proj != null)
+					proj.deleteProjectile();
+			}
+				
+			prevGrapple = data.grapple;
+
+			return condition;
 		}
 
 		/// <summary>
@@ -188,9 +223,9 @@ namespace App.Game.Player
 			}
 		}
 
-		void Grapple()
+		void OnMouseDown()
 		{
-			stopNormalMovement();
+			Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		}
 
 		void Crouch()

@@ -26,6 +26,24 @@ namespace CustomInspectors
 
 		public override void OnInspectorGUI()
 		{
+			if(handler.colCheckTags == null)
+				handler.colCheckTags = new System.Collections.Generic.List<string>();
+
+			if(handler.colCheckNames == null)
+				handler.colCheckNames = new System.Collections.Generic.List<string>();
+
+			if(handler.trigCheckTags == null)
+				handler.trigCheckTags = new System.Collections.Generic.List<string>();
+
+			if(handler.trigCheckNames == null)
+				handler.trigCheckNames = new System.Collections.Generic.List<string>();
+
+			if(handler.rayCheckTags == null)
+				handler.rayCheckTags = new System.Collections.Generic.List<string>();
+
+			if(handler.rayCheckNames == null)
+				handler.rayCheckNames = new System.Collections.Generic.List<string>();
+			
 			colSettings();
 			trigSettings();
 			raySettings();

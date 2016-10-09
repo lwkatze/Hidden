@@ -20,7 +20,6 @@ namespace App.Game.Player
 
 		void resizeCollider(animValues value)
 		{
-			Debug.Log("Value in resizeCollider: " + value);
 			if(value == animValues.idle)
 			{
 				transform.localScale = normalSize;

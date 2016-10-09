@@ -7,18 +7,22 @@ namespace App.Game.Utility
 	public delegate void colResponder(object sender, Collision2D col, InteractionEventArgs args);
 	public delegate void trigResponder(object sender, Collider2D trig, InteractionEventArgs args);
 	public delegate void rayResponder(object sender, RaycastHit2D rayCast, InteractionEventArgs args);
+
 	public class InteractionHandler : MonoBehaviour 
 	{
 		public event colResponder colFired;
 		public event trigResponder trigFired;
 		public event rayResponder rayHit;
 
+		public bool colAnythingBut = false;
 		public List<string> colCheckTags;
 		public List<string> colCheckNames;
 
+		public bool trigAnythingBut = false;
 		public List<string> trigCheckTags;
 		public List<string> trigCheckNames;
 
+		public bool rayAnythingBut = false;
 		public List<string> rayCheckTags;
 		public List<string> rayCheckNames;
 
