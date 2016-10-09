@@ -81,6 +81,7 @@ public class ScreenFader : MonoBehaviour
 
 	public void EndScene(int SceneNumber)
 	{
+		Debug.Log("ENDING SCENE");
 		sceneStarting = false;
 		StartCoroutine("EndSceneRoutine", SceneNumber);
 	}

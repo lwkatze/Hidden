@@ -34,9 +34,6 @@ namespace App.Game.Player
 				data.rend.sortingOrder = 0;
 				data.rgbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 			}
-
-			if(transform.position.y < data.fallDeathDist)
-				Death(deathType.Fall);
 		}
 
 		private void interact()
@@ -83,8 +80,6 @@ namespace App.Game.Player
 
 		private void Death(deathType type)
 		{
-			Debug.Log("Death");
-
 			lvlChange.SendMessage("SceneLoad", sceneLoadType.reload, SendMessageOptions.RequireReceiver);
 		}
 
