@@ -8,10 +8,18 @@ public class AudioController : MonoBehaviour
     private AudioSource sourceAmbient;
     private AudioSource sourceFX;
 
+    //Music
     public AudioClip musicLoop;
     public AudioClip musicEnd;
+
+    //Ambient
     public AudioClip dripLoop;
+
+    //FX
     public AudioClip locker;
+    public AudioClip lightFlicker;
+
+    //Voice
     public AudioClip prisonerLines1;
     public AudioClip prisonerLines2;
     public AudioClip prisonerLines3;
@@ -85,6 +93,21 @@ public class AudioController : MonoBehaviour
     }
 
     public void GrappleLine()
+    {
+
+    }
+
+    public void GrappleHit()
+    {
+
+    }
+
+    public void LockerSound()
+    {
+
+    }
+
+    public void TaserShot()
     {
 
     }
