@@ -32,6 +32,7 @@ public class AudioController : MonoBehaviour
 
     bool inEnemyRange;
     bool inLightRange;
+    bool lockerBool;
 
     void Start()
     {
@@ -150,11 +151,15 @@ public class AudioController : MonoBehaviour
 
     public void LockerSound()
     {
-        if (!sourceFX.isPlaying)
-        {
-            sourceFX.volume = 1f;
-            sourceFX.PlayOneShot(locker);
-            sourceFX.volume = 0.5f;
+        
+        if (!lockerBool) {
+            if (!sourceFX.isPlaying)
+            {
+                sourceFX.volume = 1f;
+                sourceFX.PlayOneShot(locker);
+                sourceFX.volume = 0.5f;
+                lockerBool = true;
+            }
         }
     }
 
@@ -167,7 +172,10 @@ public class AudioController : MonoBehaviour
     {
         if (inLightRange)
         {
-            sourceFX.PlayOneShot(lightFlicker3);
+            if (!sourceFX.isPlaying)
+            {
+                sourceFX.PlayOneShot(lightFlicker3);
+            }
         }
 
     }

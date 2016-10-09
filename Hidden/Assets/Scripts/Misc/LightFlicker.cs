@@ -52,9 +52,10 @@ public class LightFlicker : MonoBehaviour {
 
     IEnumerator waitTimerTwo(float time)
     {
-        yield return new WaitForSeconds(time);
-        print("light on");
+        yield return new WaitForSeconds(time / 4);
         AC.LightFlicker();
+        yield return new WaitForSeconds(time/2);
+        print("light on");
         lightBloom.SetActive(true);
         lightShaft.SetActive(true);
         lightObjectOn.SetActive(true);
