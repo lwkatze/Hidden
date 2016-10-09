@@ -135,11 +135,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colAnythingBut: 0
   colCheckTags:
-  - Untagged
-  - Pipe
-  - Player
+  - GrappleObject
   colCheckNames:
+  - pipes
   - Pipe
+  - pipe
   trigAnythingBut: 0
   trigCheckTags: []
   trigCheckNames: []

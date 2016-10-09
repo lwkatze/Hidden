@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Pipe
+  - Light
+  - GrappleObject
+  - Locker
   layers:
   - Default
   - TransparentFX

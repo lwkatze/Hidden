@@ -24,22 +24,24 @@ namespace App.Game.Player
 			doLine();
 
 			handler.colFired += new colResponder(colResponse);
-
-			Debug.Log("Start Called");
 		}
 
 		protected override void Update()
 		{
-			Debug.Log("Move is: " + move);
-
 			if(move == true)
 				translatePosition();
+		}
+
+		protected override void OnCollision2D(Collision2D col)
+		{
+
 		}
 
 		public override void translatePosition ()
 		{
 			line.SetPositions(setPositions(initPos, transform.position));
 			base.translatePosition ();
+			Debug.Log("Angle: " + angle);
 		}
 
 		void OnCollisionEnter2D(Collision2D col)

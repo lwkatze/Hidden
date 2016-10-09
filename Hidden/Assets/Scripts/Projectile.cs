@@ -37,6 +37,11 @@ namespace App.Game.Object
 			initPos = transform.position;
 		}
 
+		protected virtual void OnCollision2D(Collision2D col)
+		{
+			stop();
+		}
+
 		protected virtual void Update()
 		{
 			Debug.Log("Move: " + move);
