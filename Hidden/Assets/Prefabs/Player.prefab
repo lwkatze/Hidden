@@ -148,7 +148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011815402534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.322, y: 0.036, z: -10}
+  m_LocalPosition: {x: -4.04, y: -1.47, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012562836824}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d98fe69a22b9482baaf04b87b7263a9, type: 3}
   m_Name: 
@@ -368,13 +368,16 @@ MonoBehaviour:
   vOnLand: {x: 0, y: 0, z: 0}
   rgbody: {fileID: 50000013508916372}
   anim: {fileID: 95000012476262980}
+  rend: {fileID: 0}
   playerCam: {fileID: 0}
-  jumpForce: 2400
+  jumpForce: 3050
   termVelocity: -60
   crawlSpeed: 3
   moveSpeed: 7
   moveSpeedPerSecond: 10
+  hideSortLayer: -2
   moveWithVelocity: 0
+  isHiding: 0
   h_axis: 0
 --- !u!212 &212000010295407746
 SpriteRenderer:

@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AudioBridge.cs" />
+     <Compile Include="Assets\AudioController.cs" />
      <Compile Include="Assets\Scripts\Actuators\DeathActuator.cs" />
      <Compile Include="Assets\Scripts\Actuators\GenericActuator.cs" />
      <Compile Include="Assets\Scripts\ButtonController.cs" />

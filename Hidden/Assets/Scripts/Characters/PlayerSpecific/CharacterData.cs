@@ -69,13 +69,16 @@ namespace App.Game.Player
 		[HideInInspector] public Vector3 vOnLand;
 		public Rigidbody2D rgbody;
 		public Animator anim;
+		public Renderer rend;
 		public Camera playerCam;
 		public float jumpForce = 7200f;
 		public float termVelocity = -60f;
 		public float crawlSpeed = 10f;
 		public float moveSpeed = 20f;
 		public float moveSpeedPerSecond = 30f;
+		public int hideSortLayer = -2;
 		public bool moveWithVelocity = false;
+		public bool isHiding = false;
 
 		[HideInInspector] public float h_axis;
 
@@ -169,19 +172,18 @@ namespace App.Game.Player
 			{
 				Destroy(gameObject);
 			}
+		}
 
-			/*List<inputValues> list = new List<inputValues>(inputHierarchy.Keys);
-			foreach(inputValues values in list)
-			{
-				Debug.Log("Value: " + values.ToString());
-			}*/
+		void Start()
+		{
+			if(rend == null)
+				rend = GetComponentInChildren<SpriteRenderer>();
 		}
 
 		void Update()
 		{
 			prev_distFromGnd = distFromGnd;
 			KeyboardUpdate();
-			Debug.Log("AnimWalking: " + animWalking);
 		}
 
 		#endregion
@@ -232,24 +234,18 @@ namespace App.Game.Player
 
 		void KeyboardUpdate()
 		{
-			/*Debug.Log("Grapple: " + getInputValue(inputValues.grapple));
-			Debug.Log("Walk: " + getInputValue(inputValues.walk));
-			Debug.Log("Crouch: " + getInputValue(inputValues.crouch));
-			Debug.Log("Jump: " + getInputValue(inputValues.jump));*/
-
 			h_axis = Input.GetAxis("Horizontal");
 
-			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
-
+			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis == 0)? 0 : -1));
+			Debug.Log(anim.GetInteger("CrawlWalk"));
 			if(Input.GetButtonUp("Horizontal"))
 			{
 				h_axis = 0;
 			}
-			if(Input.GetButton("Interact"))
+			if(Input.GetButtonDown("Interact"))
 			{
 				interact = (interact > 0)? 0 : 1;	//toggle interact
-				if(interact > 0)
-					beneathToZero(inputValues.interact);
+				beneathToZero(inputValues.interact);
 				return;
 			}
 			if(crawl > 0)
@@ -293,6 +289,11 @@ namespace App.Game.Player
 			}
 				
 			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
+
+			Debug.Log("Walk: " + walk);
+			Debug.Log("Crouch: " + crouch);
+			Debug.Log("Crawl: " + crawl);
+			Debug.Log("Grapple: " + grapple);
 		}
 
 		//Set all elements lower than the given element to zero

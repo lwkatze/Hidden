@@ -12,10 +12,35 @@ namespace App.Game.Player
 		public InteractionHandler handler;
 
 		private CharacterData data { get { return CharacterData.charaData; } }
+		private GameObject hideObj;
+		private bool canHide;
 
 		void Start () 
 		{
+			if(handler == null)
+				Debug.LogError("You need to inlcude a InteractionHandler reference!");
+
 			subscribeEvents();
+		}
+
+		void Update()
+		{
+			if(canHide && data.interact > 0)
+				interact();
+
+			else if(canHide && data.interact <= 0)
+			{
+				data.rend.sortingOrder = 0;
+				data.rgbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+			}
+			
+		}
+
+		private void interact()
+		{
+			transform.position = hideObj.transform.position;
+			data.rend.sortingOrder = data.hideSortLayer;
+			data.rgbody.constraints = RigidbodyConstraints2D.FreezeAll;
 		}
 
 		private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
@@ -25,7 +50,14 @@ namespace App.Game.Player
 
 		private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
 		{
-			Debug.Log("trig detected in playerHandler");
+			if(trig.gameObject.tag == "Locker" && e.type == eventType.Enter)
+			{
+				canHide = true;
+				hideObj = trig.gameObject;
+			}
+
+			else if(trig.gameObject.tag == "Locker" && e.type == eventType.Exit)
+				canHide = false;
 		}
 			
 		private void subscribeEvents()
