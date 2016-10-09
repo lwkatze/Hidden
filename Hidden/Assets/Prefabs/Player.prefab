@@ -351,8 +351,11 @@ MonoBehaviour:
   trigAnythingBut: 0
   trigCheckTags:
   - Locker
+<<<<<<< HEAD
   - Death
   - Enemy
+=======
+>>>>>>> origin/master
   trigCheckNames: []
   rayAnythingBut: 0
   rayCheckTags: []
@@ -387,13 +390,11 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   jumpForce: 3050
   termVelocity: -60
-  fallDeathDist: -100
   crawlSpeed: 3
   moveSpeed: 7
   moveSpeedPerSecond: 10
   hideSortLayer: -2
   moveWithVelocity: 0
-  grappleLocked: 0
   canInteract: 0
   isHiding: 0
   h_axis: 0

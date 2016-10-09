@@ -28,22 +28,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000012629100574
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000010964602280}
-  - 212: {fileID: 212000012600852946}
-  m_Layer: 0
-  m_Name: light_shaft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000014183083884
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +80,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &4000010964602280
 Transform:
   m_ObjectHideFlags: 1
@@ -109,6 +94,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012434469686}
   m_RootOrder: 3
+=======
+>>>>>>> origin/master
 --- !u!4 &4000011677692314
 Transform:
   m_ObjectHideFlags: 1
@@ -142,14 +129,21 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014262194732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 88.46, y: -0.99, z: 0}
+=======
+  m_LocalPosition: {x: 12.89, y: 0.91429925, z: 0}
+>>>>>>> origin/master
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011922494060}
   - {fileID: 4000011677692314}
+<<<<<<< HEAD
   - {fileID: 4000014097513026}
   - {fileID: 4000010964602280}
+=======
+>>>>>>> origin/master
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000014097513026
@@ -191,11 +185,11 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0.0069328547}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.3189142}
+  m_Size: {x: 1, y: 1}
 --- !u!61 &61000013293562146
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -241,8 +235,13 @@ MonoBehaviour:
   rayEndPoint: {fileID: 4000011677692314}
   speed: 2
   runSpeed: 10.5
+<<<<<<< HEAD
   patrolDistance: 8
   startDist: 0
+=======
+  patrolDistance: 10
+  startDist: 0.9
+>>>>>>> origin/master
   timeToReact: 0.7
   timeToGiveUp: 3
   escapeDistance: 30
@@ -292,6 +291,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   raycastAll: 0
+<<<<<<< HEAD
 --- !u!212 &212000012600852946
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -358,6 +358,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+=======
+>>>>>>> origin/master
 --- !u!212 &212000013084052080
 SpriteRenderer:
   m_ObjectHideFlags: 1

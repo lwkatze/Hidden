@@ -65,7 +65,6 @@
      <Compile Include="Assets\Scripts\Misc\LightFlicker.cs" />
      <Compile Include="Assets\Scripts\Misc\Projectile.cs" />
      <Compile Include="Assets\Scripts\Misc\Tilt.cs" />
-     <Compile Include="Assets\Scripts\Utility\LevelChanger.cs" />
      <Compile Include="Assets\Scripts\Utility\ObjectInteractionController.cs" />
      <Compile Include="Assets\Scripts\Utility\Parallaxing.cs" />
      <Compile Include="Assets\Scripts\Utility\ScreenFader.cs" />

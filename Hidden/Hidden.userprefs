@@ -1,22 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AudioBridge.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Characters/PlayerSpecific/PlayerHandler.cs">
     <Files>
-      <File FileName="Assets/Scripts/Characters/PlayerSpecific/CharacterData.cs" Line="186" Column="40" />
+      <File FileName="Assets/Scripts/Characters/PlayerSpecific/CharacterData.cs" Line="177" Column="5" />
       <File FileName="Assets/Scripts/Characters/PlayerSpecific/PlayerMove.cs" Line="212" Column="5" />
       <File FileName="Assets/Scripts/Characters/PlayerSpecific/GrapplingHook.cs" Line="28" Column="32" />
       <File FileName="Assets/Scripts/Characters/PlayerSpecific/ColliderResize.cs" Line="25" Column="5" />
-      <File FileName="Assets/Scripts/Characters/PlayerSpecific/PlayerHandler.cs" Line="83" Column="70" />
       <File FileName="Assets/Scripts/Editor/InteractionHandlerInpector.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Characters/InteractionHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Characters/Enemy/EnemyData.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Misc/Projectile.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Actuators/GenericActuator.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameWide/GameData.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Characters/Enemy/EnemyData.cs" Line="16" Column="46" />
+      <File FileName="Assets/Scripts/Misc/Projectile.cs" Line="5" Column="2" />
+      <File FileName="Assets/Scripts/GameWide/GameData.cs" Line="5" Column="1" />
       <File FileName="Assets/Scripts/Actuators/DeathActuator.cs" Line="43" Column="116" />
       <File FileName="Assets/Scripts/Characters/Enemy/EnemyAI.cs" Line="121" Column="10" />
-      <File FileName="Assets/AudioBridge.cs" Line="16" Column="1" />
-      <File FileName="Assets/Scripts/AudioBridge.cs" Line="4" Column="1" />
+      <File FileName="Assets/Scripts/Characters/PlayerSpecific/PlayerHandler.cs" Line="85" Column="1" />
+      <File FileName="Assets/Scripts/Utility/ScreenFader.cs" Line="84" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

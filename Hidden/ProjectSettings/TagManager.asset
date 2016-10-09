@@ -12,8 +12,6 @@ TagManager:
   - SceneObject
   - Prisoner
   - Fader
-  - Enemy
-  - Death
   layers:
   - Default
   - TransparentFX
