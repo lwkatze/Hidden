@@ -280,9 +280,15 @@ Prefab:
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 377324357}
-    - target: {fileID: 4000012656255932, guid: 9786b8b13e8124c2397c18dfe3df2898, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.61
+    - target: {fileID: 114000013948753442, guid: 9786b8b13e8124c2397c18dfe3df2898,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012507267906, guid: 9786b8b13e8124c2397c18dfe3df2898,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9786b8b13e8124c2397c18dfe3df2898, type: 2}
@@ -470,8 +476,54 @@ Prefab:
       propertyPath: m_Size.x
       value: 0.6572958
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011396533694, guid: f90cb8881171d4a0f98e7b09b525fd52, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90cb8881171d4a0f98e7b09b525fd52, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1847196024
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013596351872, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5900415a376c64c71b6afabe83634ec6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1881119763
 GameObject:
@@ -598,9 +650,11 @@ GameObject:
   - 4: {fileID: 1886239321}
   - 212: {fileID: 1886239320}
   - 61: {fileID: 1886239319}
+  - 114: {fileID: 1886239322}
+  - 50: {fileID: 1886239323}
   m_Layer: 0
   m_Name: Pipe
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -660,11 +714,54 @@ Transform:
   m_GameObject: {fileID: 1886239318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.88, y: 3.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 3.2250018, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &1886239322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1886239318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d98fe69a22b9482baaf04b87b7263a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colAnythingBut: 0
+  colCheckTags:
+  - Untagged
+  colCheckNames: []
+  trigAnythingBut: 0
+  trigCheckTags: []
+  trigCheckNames: []
+  rayAnythingBut: 0
+  rayCheckTags: []
+  rayCheckNames: []
+  rayEndpoint: {fileID: 0}
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 0
+  raycastAll: 0
+--- !u!50 &1886239323
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1886239318}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1902077531
 Prefab:
   m_ObjectHideFlags: 0

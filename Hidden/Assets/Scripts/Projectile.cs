@@ -47,11 +47,6 @@ namespace App.Game.Object
 				stop();
 		}
 
-		protected virtual void OnCollisionEnter2D()
-		{
-			stop();
-		}
-
 		public virtual void go()
 		{
 			Debug.Log("GO");

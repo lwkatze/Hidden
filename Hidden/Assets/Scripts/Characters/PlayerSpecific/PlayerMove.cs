@@ -156,7 +156,7 @@ namespace App.Game.Player
 			//do grapple
 			if(data.grapple && !prevGrapple)
 			{
-				proj = new CreateProjectile(grapHook, grapStart.position, grappleDirection, data.moveSpeedPerSecond, 90f);
+				proj = new CreateProjectile(grapHook, grapStart.position, grappleDirection, 5f, 90f);
 			} 
 			else if(!data.grapple && prevGrapple)
 			{

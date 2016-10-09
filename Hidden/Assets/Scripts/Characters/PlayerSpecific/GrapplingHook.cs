@@ -36,15 +36,16 @@ namespace App.Game.Player
 				translatePosition();
 		}
 
-		protected override void OnCollisionEnter2D()
-		{
-
-		}
-	
 		public override void translatePosition ()
 		{
 			line.SetPositions(setPositions(initPos, transform.position));
 			base.translatePosition ();
+		}
+
+		void OnCollisionEnter2D(Collision2D col)
+		{
+			if(col.gameObject.tag == "Untagged" || col.gameObject.tag == "Pipe" || col.gameObject.tag == "GrappleObject")
+				base.stop();
 		}
 
 		private Vector3[] setPositions(Vector3 v1, Vector3 v2)
