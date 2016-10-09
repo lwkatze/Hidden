@@ -147,7 +147,6 @@ namespace App.Game.Player
 			{
 				animChanged(value);
 			}
-			Debug.Log("Dispatch " + value.ToString());
 		}
 	}
 

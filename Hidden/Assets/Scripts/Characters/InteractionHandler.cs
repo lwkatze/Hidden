@@ -30,16 +30,6 @@ namespace App.Game.Utility
 		public LayerMask raycastMask;
 		public bool raycastAll;
 
-		void Start()
-		{
-			Debug.Log("Start colCheckTags: " + colCheckTags.Count);
-		}
-
-		void Update()
-		{
-			Debug.Log("Update colCheckTags: " + colCheckTags.Count);
-		}
-
 		void OnCollisionEnter2D(Collision2D col)
 		{
 			Debug.Log("Collision Enter colCheckTags: " + colCheckTags.Count + " object name: " + transform.gameObject.name);
@@ -101,7 +91,6 @@ namespace App.Game.Utility
 			{
 				foreach(string str in colCheckTags)
 				{
-					Debug.Log("Col tag is: " + col.gameObject.tag + " str is: " + str);
 					if(str == col.gameObject.tag)
 					{
 						Debug.Log("Collision detected");

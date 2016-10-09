@@ -135,8 +135,6 @@ namespace App.Game.Object
 			{
 				float ratio = distVector(v1, v2).y/distVector(v1, v2).x;
 
-
-				Debug.Log("V1: " + v1 + "  V2: " + v2);
 				return Mathf.Atan2(distVector(v1, v2).y, distVector(v1, v2).x) * Mathf.PI;
 			}
 		}
