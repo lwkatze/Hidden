@@ -42,26 +42,24 @@ namespace App.Game.Player
 			data.rgbody.constraints = RigidbodyConstraints2D.FreezeAll;
 		}
 
-		private void colResponse(object sender, Collision2D col, InteractionEventArgs e)
-		{
-			Debug.Log("col detected in playerHandler");
-		}
-
 		private void trigResponse(object sender, Collider2D trig, InteractionEventArgs e)
 		{
 			if(trig.gameObject.tag == "Locker" && e.type == eventType.Enter)
 			{
 				data.canInteract = true;
 				hideObj = trig.gameObject;
+				data.gameObject.layer = LayerMask.NameToLayer("IgnoreRaycast");
 			}
 
 			else if(trig.gameObject.tag == "Locker" && e.type == eventType.Exit)
+			{
 				data.canInteract = false;
+				data.gameObject.layer = LayerMask.NameToLayer("Player");
+			}
 		}
 			
 		private void subscribeEvents()
 		{
-			//handler.colFired += new colResponder(colResponse);
 			handler.trigFired += new trigResponder(trigResponse);
 		}
 

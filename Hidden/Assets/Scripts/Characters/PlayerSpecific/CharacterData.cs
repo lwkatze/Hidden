@@ -247,6 +247,7 @@ namespace App.Game.Player
 			{
 				interact = (interact > 0)? 0 : 1;	//toggle interact
 				beneathToZero(inputValues.interact);
+
 				return;
 			}
 			if(crawl > 0)
