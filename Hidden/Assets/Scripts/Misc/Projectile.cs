@@ -53,7 +53,6 @@ namespace App.Game.Object
 
 		public virtual void go()
 		{
-			Debug.Log("GO");
 			move = true;
 		}
 

@@ -181,6 +181,7 @@ namespace App.Game.Player
 		{
 			prev_distFromGnd = distFromGnd;
 			KeyboardUpdate();
+			Debug.Log("AnimWalking: " + animWalking);
 		}
 
 		#endregion
@@ -231,51 +232,89 @@ namespace App.Game.Player
 
 		void KeyboardUpdate()
 		{
-			Debug.Log("Grapple: " + getInputValue(inputValues.grapple));
+			/*Debug.Log("Grapple: " + getInputValue(inputValues.grapple));
 			Debug.Log("Walk: " + getInputValue(inputValues.walk));
 			Debug.Log("Crouch: " + getInputValue(inputValues.crouch));
-			Debug.Log("Jump: " + getInputValue(inputValues.jump));
+			Debug.Log("Jump: " + getInputValue(inputValues.jump));*/
 
 			h_axis = Input.GetAxis("Horizontal");
+
+			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
+
+			if(Input.GetButtonUp("Horizontal"))
+			{
+				h_axis = 0;
+			}
+			if(Input.GetButton("Interact"))
+			{
+				interact = (interact > 0)? 0 : 1;	//toggle interact
+				if(interact > 0)
+					beneathToZero(inputValues.interact);
+				return;
+			}
+			if(crawl > 0)
+			{
+				beneathToZero(inputValues.crawl);
+				return;
+			}
+			if(Input.GetButton("Grapple"))
+			{
+				grapple = 1;
+				beneathToZero(inputValues.grapple);
+				return;
+			}
+
+			if(Input.GetButtonUp("Grapple"))
+			{
+				grapple = 0;
+			}
 
 			if(Input.GetButtonDown("Jump"))
 			{
 				jump = 1;
+				beneathToZero(inputValues.jump);
+				return;
 			}
 			if(!Input.GetButtonDown("Jump"))
 			{
 				jump = 0;
 			}
-			if(Input.GetButtonDown("Grapple"))
-			{
-				grapple = 1;
-			}
-			if(Input.GetButtonUp("Grapple"))
-			{
-				grapple = 0;
-			}
-			if(Input.GetButtonDown("Crouch"))
+
+			if(Input.GetButton("Crouch"))
 			{
 				crouch = 1;
+				beneathToZero(inputValues.crouch);
+				return;
 			}
+
 			if(Input.GetButtonUp("Crouch"))
 			{
 				crouch = 0;
 			}
-			if(Input.GetButtonUp("Horizontal"))
-			{
-				h_axis = 0;
-			}
-			if(Input.GetButtonDown("Interact"))
-			{
-				interact = (interact > 0)? 1 : 0;
-			}
-
+				
 			walk = (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0);
+		}
 
-			anim.SetInteger("CrawlWalk", (h_axis > 0)? 1 : ((h_axis < 0)? -1 : 0));
+		//Set all elements lower than the given element to zero
+		private void beneathToZero(inputValues value)
+		{
+			List<inputValues> keys = new List<inputValues>(inputHierarchy.Keys);
+
+			for(int i = keys.IndexOf(value) + 1; i < keys.Count; i++)
+			{
+				Debug.Log(keys[i].ToString() + " is " + inputHierarchy[keys[i]]);
+				inputHierarchy[keys[i]] = 0;
+			}
+
+			walk = inputHierarchy[inputValues.walk];
+			crouch = inputHierarchy[inputValues.crouch];
+			crawl = inputHierarchy[inputValues.crawl];
+			grapple = inputHierarchy[inputValues.grapple];
+			jump = inputHierarchy[inputValues.jump];
+			interact = inputHierarchy[inputValues.interact];
 		}
 	}
+
 
 	public enum inputValues
 	{

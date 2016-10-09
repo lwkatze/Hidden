@@ -82,7 +82,6 @@ namespace App.Game.Utility
 				{
 					if(str == col.gameObject.tag)
 					{
-						Debug.Log("Collision detected");
 						condition = true;
 						break;
 					}
@@ -95,7 +94,6 @@ namespace App.Game.Utility
 				{
 					if(str == col.gameObject.name)
 					{
-						Debug.Log("Collision detected");
 						condition = true;
 						break;
 					}

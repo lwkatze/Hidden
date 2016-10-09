@@ -139,7 +139,7 @@ namespace App.Game.Player
 
 		private void Move()
 		{
-			if(IntToBool(Mathf.Abs(data.getInputValue(inputValues.walk))) || IntToBool(data.getInputValue(inputValues.jump)))
+			if(IntToBool(Mathf.Abs(data.walk)) || IntToBool(data.jump))
 				NormalMove();
 
 			else
@@ -149,7 +149,7 @@ namespace App.Game.Player
 				grapple();
 			}	
 
-			if(data.getInputValue(inputValues.crawl) == 0 && data.getInputValue(inputValues.crouch) == 0)
+			if(data.crawl == 0 && data.crouch == 0)
 				resizer.resizeCollider(inputValues.idle);
 
 			if(data.rgbody.velocity.y <= data.termVelocity)
@@ -161,6 +161,8 @@ namespace App.Game.Player
 		//normal movement: walk and jump
 		void NormalMove ()
 		{
+			if(data.rgbody.isKinematic ==  true)
+				data.rgbody.isKinematic = false;
 			if(data.h_axis > 0 && facingRight)
 				Flip();
 			if(data.h_axis < 0 && !facingRight)
@@ -169,7 +171,7 @@ namespace App.Game.Player
 			moveVector = new Vector2(data.h_axis * data.moveSpeedPerSecond, 0);
 			data.transform.Translate(moveVector * Time.deltaTime);
 
-			if(IntToBool(data.getInputValue(inputValues.jump)) && data.gndBool)
+			if(IntToBool(data.jump) && data.gndBool)
 			{
 					data.rgbody.AddForce(new Vector2(0, data.jumpForce));
 			}
@@ -186,7 +188,7 @@ namespace App.Game.Player
 		void grapple()
 		{
 			//do grapple
-			if(IntToBool(data.getInputValue(inputValues.grapple)) && !IntToBool(prevGrapple))
+			if(IntToBool(data.grapple) && !IntToBool(prevGrapple))
 			{
 				proj = new CreateProjectile(grapHook, grapStart.position, ((Vector2)grapStart.position)+(grappleDirection), data.moveSpeedPerSecond, 90f);
 			} 
@@ -220,7 +222,7 @@ namespace App.Game.Player
 				}
 			}
 				
-			prevGrapple = data.getInputValue(inputValues.grapple);
+			prevGrapple = data.grapple;
 		}
 
 		int crawl()
@@ -243,7 +245,7 @@ namespace App.Game.Player
 				}
 			}
 
-			if(IntToBool(data.getInputValue(inputValues.crawl)) && hitPipe)
+			if(IntToBool(data.crawl) && hitPipe)
 			{
 				theReturn = 0;
 
@@ -266,7 +268,7 @@ namespace App.Game.Player
 			
 		int crouch()
 		{
-			int theReturn = data.getInputValue(inputValues.crouch);
+			int theReturn = data.crouch;
 
 			if(IntToBool(theReturn))
 				resizer.resizeCollider(inputValues.crouch);

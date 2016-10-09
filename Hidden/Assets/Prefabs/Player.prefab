@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000014026082320}
   m_Layer: 8
   m_Name: GndCheck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   - 114: {fileID: 114000012149679406}
   m_Layer: 0
   m_Name: E_button_outlined
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   - 95: {fileID: 95000012476262980}
   m_Layer: 8
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - 4: {fileID: 4000012656255932}
   m_Layer: 8
   m_Name: GrapHookStart
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,7 +205,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011815402534}
   m_UseAutoMass: 0
-  m_Mass: 0.1
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -360,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 4000012530925776}
   gndCheck: {fileID: 4000014026082320}
+  spawnPoints: []
   gndMask:
     serializedVersion: 2
     m_Bits: 512

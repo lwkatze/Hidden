@@ -30,7 +30,6 @@ namespace App.Game.Player
 		{
 			line.SetPositions(setPositions(initPos + new Vector2(0f, -0.5f), transform.position));
 			base.translatePosition ();
-			Debug.Log("Angle: " + transform.eulerAngles);
 		}
 
 		protected override void OnCollisionEnter2D(Collision2D col)
