@@ -210,7 +210,6 @@ namespace App.Game.Player
 				
 			if(proj != null && proj.projectile != null)
 			{
-				//if the projectile is locked in position
 				if(proj.projectile.locked)
 				{
 					data.rgbody.isKinematic = true;
@@ -224,8 +223,6 @@ namespace App.Game.Player
 					}
 				}
 			}
-				
-			data.grappleLocked = (proj.projectile != null)? proj.projectile.locked : false;
 
 			prevGrapple = data.grapple;
 		}

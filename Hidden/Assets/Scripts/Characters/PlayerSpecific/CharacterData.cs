@@ -78,7 +78,6 @@ namespace App.Game.Player
 		public float moveSpeedPerSecond = 30f;
 		public int hideSortLayer = -2;
 		public bool moveWithVelocity = false;
-		public bool grappleLocked;
 		public bool canInteract = false;
 		public bool isHiding = false;
 

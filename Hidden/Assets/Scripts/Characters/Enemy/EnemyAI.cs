@@ -116,28 +116,16 @@ namespace App.Game.Enemy
 		{
 			int direction = 1;
 
-			if(Mathf.Abs(player.transform.position.x - transform.position.x) > confuseDistance)
-				direction = (player.transform.position.x > transform.position.x)? 1 : -1;
+			direction = (player.transform.position.x > transform.position.x)? 1 : -1;
 
-			else
-			{
-				int temp = Random.Range(-1, 1);
-
-				if(temp == 0)
-					temp = 1;
-				
-				direction = temp/Mathf.Abs(temp);
-				lockPursue = true;
-				StartCoroutine(lockPursuit(timeToReact, direction));
-			}
-
-			if(!lockPursue)
-				transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
+			transform.Translate(runSpeed*direction*Time.deltaTime, 0, 0, Space.World);
 
 			if(Mathf.Abs(player.transform.position.x - transform.position.x) > escapeDistance)
 			{
 				StartCoroutine(timeGiveUp(timeToGiveUp));
 			}
+
+			transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 		}
 
 		IEnumerator timePersuit(float seconds)
