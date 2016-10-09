@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Actuators\DeathActuator.cs" />
      <Compile Include="Assets\Scripts\Actuators\GenericActuator.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemy\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemy\EnemyData.cs" />

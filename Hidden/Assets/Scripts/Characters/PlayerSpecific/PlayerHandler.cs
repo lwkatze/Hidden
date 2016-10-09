@@ -42,6 +42,12 @@ namespace App.Game.Player
 			}
 		}
 
+		private void OnDeath(ActuatorArgs args)
+		{
+			//go to last spawn
+			transform.position = data.spawnPoints[data.spawnPoints.Count - 1];
+		}
+
 
 	}
 }

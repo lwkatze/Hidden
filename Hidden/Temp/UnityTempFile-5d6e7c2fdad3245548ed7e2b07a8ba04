@@ -84,6 +84,8 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
+'Assets/Scripts/Actuators/DeathActuator.cs'
+'Assets/Scripts/Actuators/GenericActuator.cs'
 'Assets/Scripts/Characters/Enemy/EnemyAI.cs'
 'Assets/Scripts/Characters/Enemy/EnemyData.cs'
 'Assets/Scripts/Characters/InteractionHandler.cs'
@@ -92,7 +94,8 @@
 'Assets/Scripts/Characters/PlayerSpecific/GrapplingHook.cs'
 'Assets/Scripts/Characters/PlayerSpecific/PlayerHandler.cs'
 'Assets/Scripts/Characters/PlayerSpecific/PlayerMove.cs'
-'Assets/Scripts/GlobalEventHandler.cs'
+'Assets/Scripts/GameWide/GameData.cs'
+'Assets/Scripts/GameWide/GlobalEventHandler.cs'
 'Assets/Scripts/MainMenu/LevelManager.cs'
 'Assets/Scripts/Misc/LightFlicker.cs'
 'Assets/Scripts/Misc/Projectile.cs'
